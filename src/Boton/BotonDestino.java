@@ -1,4 +1,8 @@
 package Boton;
 
-public class BotonDestino {
+public class BotonDestino extends BotonSolicitud{
+    @Override
+    void enviarSolicitud() {
+
+    }
 }

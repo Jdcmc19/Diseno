@@ -1,4 +1,15 @@
 package FileStrategy.Types;
 
-public class Json {
+import FileStrategy.File;
+
+public class Json implements File {
+    @Override
+    public void escribir() {
+
+    }
+
+    @Override
+    public void leer() {
+
+    }
 }

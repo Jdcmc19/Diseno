@@ -1,4 +1,15 @@
 package FileStrategy.Types;
 
-public class Text {
+import FileStrategy.File;
+
+public class Text implements File {
+    @Override
+    public void escribir() {
+
+    }
+
+    @Override
+    public void leer() {
+
+    }
 }
