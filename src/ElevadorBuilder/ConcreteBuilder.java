@@ -1,6 +1,10 @@
 package ElevadorBuilder;
 
 public class ConcreteBuilder implements Builder{
+
+    public ConcreteBuilder() {
+    }
+
     @Override
     public void contruirCabina() {
 
