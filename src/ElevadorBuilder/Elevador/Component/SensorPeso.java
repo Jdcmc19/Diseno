@@ -4,9 +4,9 @@ public class SensorPeso{
     private int cantidadMaxima;
     private int cantidadActual;
 
-    public SensorPeso(int cantidadMaxima, int cantidadActual) {
+    public SensorPeso(int cantidadMaxima) {
         this.cantidadMaxima = cantidadMaxima;
-        this.cantidadActual = cantidadActual;
+        this.cantidadActual = 0;
     }
 
     private void enviarInterrupcion(){}

@@ -1,6 +1,8 @@
 package Scheduler;
 
 import Boton.BotonLlamada;
+import Boton.DireccionLlamada;
+import ParameterDTO.ParameterTO;
 import Scheduler.ModeStrategy.Strategy;
 
 import java.util.ArrayList;
@@ -12,6 +14,17 @@ public class Dispatcher {
     public Dispatcher(Strategy calendarizador, ArrayList<BotonLlamada> botonesLlamadas) {
         this.calendarizador = calendarizador;
         this.botonesLlamadas = botonesLlamadas;
+    }
+
+    public Dispatcher(Strategy calendarizador) {
+        this.calendarizador = calendarizador;
+        BotonLlamada bl;
+        for(int i=0;i<ParameterTO.getCantidadPisos()-2;i++){
+            bl = new BotonLlamada(i+2,DireccionLlamada.SUBE);
+            botonesLlamadas.add(bl);
+            bl = new BotonLlamada(i+2,DireccionLlamada.BAJA);
+            botonesLlamadas.add(bl);
+        }
     }
 
     public Strategy getCalendarizador() {

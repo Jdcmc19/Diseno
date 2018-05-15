@@ -3,10 +3,10 @@ package ParameterDTO;
 import java.util.ArrayList;
 
 public class ParameterTO {
-    private int cantidadPisos;
+    private static int cantidadPisos;
     private int cantidadElevadores;
     private int maxCantidadPersonas;
-    private int maxPeso;
+    private static int maxPeso;
     private ArrayList probabilidadesLlamada;
     private ArrayList probabilidadesDestino;
     private ArrayList probabilidadesDetener;
@@ -14,4 +14,19 @@ public class ParameterTO {
     private ArrayList tiempoTransicion;
     private ArrayList tiempoPuertaAbierta;
 
+    public static int getCantidadPisos() {
+        return cantidadPisos;
+    }
+
+    public static void setCantidadPisos(int cantidadPisos) {
+        ParameterTO.cantidadPisos = cantidadPisos;
+    }
+
+    public static int getMaxPeso() {
+        return maxPeso;
+    }
+
+    public static void setMaxPeso(int maxPeso) {
+        ParameterTO.maxPeso = maxPeso;
+    }
 }

@@ -13,14 +13,12 @@ public class ControlElevador {
     private ArrayList<Integer> destinos;
 
     private SensorPeso sensorPeso;
-    private IndicadorPiso indicadorPiso;
-    private SensorPiso sensorPiso;
+    private ArrayList<IndicadorPiso> indicadorPiso;
+    private ArrayList<SensorPiso> sensorPiso;
     private Cabina cabina;
-    private BotonDestino botonDestino;
+    private ArrayList<BotonDestino> botonDestino;
 
-    public ControlElevador(ArrayList solicitudes, ArrayList<Integer> destinos, SensorPeso sensorPeso, IndicadorPiso indicadorPiso, SensorPiso sensorPiso, Cabina cabina, BotonDestino botonDestino) {
-        this.solicitudes = solicitudes;
-        this.destinos = destinos;
+    public ControlElevador(SensorPeso sensorPeso, ArrayList<IndicadorPiso> indicadorPiso,  ArrayList<SensorPiso> sensorPiso, Cabina cabina, ArrayList<BotonDestino> botonDestino) {
         this.sensorPeso = sensorPeso;
         this.indicadorPiso = indicadorPiso;
         this.sensorPiso = sensorPiso;
@@ -52,19 +50,19 @@ public class ControlElevador {
         this.sensorPeso = sensorPeso;
     }
 
-    public IndicadorPiso getIndicadorPiso() {
+    public ArrayList<IndicadorPiso> getIndicadorPiso() {
         return indicadorPiso;
     }
 
-    public void setIndicadorPiso(IndicadorPiso indicadorPiso) {
+    public void setIndicadorPiso(ArrayList<IndicadorPiso> indicadorPiso) {
         this.indicadorPiso = indicadorPiso;
     }
 
-    public SensorPiso getSensorPiso() {
+    public ArrayList<SensorPiso> getSensorPiso() {
         return sensorPiso;
     }
 
-    public void setSensorPiso(SensorPiso sensorPiso) {
+    public void setSensorPiso(ArrayList<SensorPiso> sensorPiso) {
         this.sensorPiso = sensorPiso;
     }
 
@@ -76,11 +74,11 @@ public class ControlElevador {
         this.cabina = cabina;
     }
 
-    public BotonDestino getBotonDestino() {
+    public ArrayList<BotonDestino> getBotonDestino() {
         return botonDestino;
     }
 
-    public void setBotonDestino(BotonDestino botonDestino) {
+    public void setBotonDestino(ArrayList<BotonDestino> botonDestino) {
         this.botonDestino = botonDestino;
     }
 }

@@ -1,5 +1,6 @@
 package ElevadorBuilder.Elevador.Component.Cabin;
 
+import ElevadorBuilder.Elevador.Component.Cabin.Move.MoveTypes.Subir;
 import ElevadorBuilder.Elevador.Component.Cabin.Move.Mover;
 
 public class Cabina {
@@ -18,6 +19,15 @@ public class Cabina {
         this.move = move;
         this.botonDetenerse = botonDetenerse;
         this.interruptorEmergencia = interruptorEmergencia;
+    }
+
+    public Cabina() {
+        this.direccionPrevista = DireccionElevador.NINGUNA;
+        this.direccionActual = DireccionElevador.NINGUNA;
+        this.pisoActual = 1;
+        this.move = new Subir();
+        this.botonDetenerse = new BotonDetenerse();
+        this.interruptorEmergencia = new InterruptorEmergencia();
     }
 
     public DireccionElevador getDireccionPrevista() {
