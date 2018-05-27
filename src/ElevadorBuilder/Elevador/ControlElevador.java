@@ -9,7 +9,7 @@ import ElevadorBuilder.Elevador.Component.SensorPiso;
 import java.util.ArrayList;
 
 public class ControlElevador {
-    private ArrayList solicitudes;
+    private ArrayList<Integer> solicitudes;
     private ArrayList<Integer> destinos;
 
     private SensorPeso sensorPeso;
@@ -24,6 +24,14 @@ public class ControlElevador {
         this.sensorPiso = sensorPiso;
         this.cabina = cabina;
         this.botonDestino = botonDestino;
+        solicitudes = new ArrayList<>();
+        destinos = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Solicitudes: "+solicitudes.size()+"\nDestinos: "+destinos.size()+"\nSensorPeso: "+sensorPeso.toString()+"\nIndicadorPiso: "+indicadorPiso.size()+
+                "\nSensorPiso: "+sensorPiso.size()+"\nCabina: "+cabina.toString()+"\nBotonDestino: "+botonDestino.size();
     }
 
     public ArrayList getSolicitudes() {

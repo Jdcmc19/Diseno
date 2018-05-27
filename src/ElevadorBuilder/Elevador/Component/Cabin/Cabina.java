@@ -12,6 +12,11 @@ public class Cabina {
     private BotonDetenerse botonDetenerse;
     private InterruptorEmergencia interruptorEmergencia;
 
+    @Override
+    public String toString() {
+        return "\n\tDireccionPrevista: "+direccionPrevista.toString()+"\n\tDireccionActual: "+direccionActual.toString()+"\n\tPisoActual: "+pisoActual;
+    }
+
     public Cabina(DireccionElevador direccionPrevista, DireccionElevador direccionActual, int pisoActual, Mover move, BotonDetenerse botonDetenerse, InterruptorEmergencia interruptorEmergencia) {
         this.direccionPrevista = direccionPrevista;
         this.direccionActual = direccionActual;
@@ -22,7 +27,7 @@ public class Cabina {
     }
 
     public Cabina() {
-        this.direccionPrevista = DireccionElevador.NINGUNA;
+        this.direccionPrevista = DireccionElevador.ARRIBA;
         this.direccionActual = DireccionElevador.NINGUNA;
         this.pisoActual = 1;
         this.move = new Subir();

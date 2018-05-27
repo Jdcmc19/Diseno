@@ -9,6 +9,11 @@ public class SensorPeso{
         this.cantidadActual = 0;
     }
 
+    @Override
+    public String toString() {
+        return "\n\tCantidadMax: "+cantidadMaxima+"\n\tCantidadActual: "+cantidadActual;
+    }
+
     private void enviarInterrupcion(){}
 
     public int getCantidadMaxima() {

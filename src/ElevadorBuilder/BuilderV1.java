@@ -10,13 +10,14 @@ import ParameterDTO.ParameterTO;
 
 import java.util.ArrayList;
 
-public class ConcreteBuilder implements Builder{
+public class BuilderV1 implements Builder{
     @Override
     public ControlElevador getElevador() {
-        return new ControlElevador(contruirSensorPeso(),contruirIndicadorPiso(),contruirSensorPiso(),contruirCabina(),contruirBotonDestino());
+        ControlElevador ce = new ControlElevador(contruirSensorPeso(),contruirIndicadorPiso(),contruirSensorPiso(),contruirCabina(),contruirBotonDestino());
+        return ce;
     }
 
-    public ConcreteBuilder() {
+    public BuilderV1() {
     }
 
     @Override

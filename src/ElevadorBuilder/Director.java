@@ -2,6 +2,8 @@ package ElevadorBuilder;
 
 import ElevadorBuilder.Elevador.ControlElevador;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class Director {
     private Builder builder;
 
@@ -9,7 +11,7 @@ public class Director {
         this.builder = builder;
     }
 
-    private ControlElevador contruir(){
+    public ControlElevador contruir(){
         return builder.getElevador();
     }
 }

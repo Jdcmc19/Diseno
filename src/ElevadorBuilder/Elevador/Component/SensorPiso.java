@@ -9,6 +9,10 @@ public class SensorPiso {
         this.piso = piso;
     }
 
+    @Override
+    public String toString() {
+        return "\n\tisClosed: "+isClosed+"\n\tPiso: "+piso;
+    }
 
     private void enviarInterrupcion(){}
     private void close(){}
