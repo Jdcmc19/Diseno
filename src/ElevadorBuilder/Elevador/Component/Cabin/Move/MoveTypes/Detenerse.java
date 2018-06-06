@@ -7,7 +7,7 @@ public class Detenerse implements Mover {
     }
 
     @Override
-    public void Moverse() {
-
+    public int Moverse(int piso) {
+        return piso;
     }
 }

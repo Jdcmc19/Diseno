@@ -7,7 +7,10 @@ public class Bajar implements Mover {
     }
 
     @Override
-    public void Moverse() {
-
+    public int Moverse(int piso) {
+        if(piso==1)
+            return 1;
+        else
+            return piso-1;
     }
 }

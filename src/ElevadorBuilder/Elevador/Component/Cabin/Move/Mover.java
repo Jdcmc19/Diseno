@@ -2,5 +2,5 @@ package ElevadorBuilder.Elevador.Component.Cabin.Move;
 
 public interface Mover {
 
-    void Moverse();
+    int Moverse(int piso);
 }

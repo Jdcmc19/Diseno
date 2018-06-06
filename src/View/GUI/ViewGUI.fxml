@@ -12,7 +12,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.GUI.ControllerGUI">
    <children>
       <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="643.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -34,16 +34,16 @@
                         <Label layoutX="86.0" layoutY="142.0" text="Cantidad de pisos" textFill="WHITE" />
                         <Label layoutX="409.0" layoutY="58.0" text="Peso" textFill="WHITE" />
                         <Label layoutX="86.0" layoutY="59.0" text="Cantidad de personas" textFill="WHITE" />
-                        <TextField layoutX="408.0" layoutY="366.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="408.0" layoutY="323.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="86.0" layoutY="366.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="86.0" layoutY="323.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="408.0" layoutY="241.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="86.0" layoutY="241.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="408.0" layoutY="159.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="86.0" layoutY="159.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="408.0" layoutY="75.0" style="-fx-background-color: gray;" />
-                        <TextField layoutX="86.0" layoutY="76.0" style="-fx-background-color: gray;" />
+                        <TextField fx:id="mEmergencia" layoutX="408.0" layoutY="366.0" promptText="Por elevador" style="-fx-background-color: gray;" text="7,8,9" />
+                        <TextField fx:id="mDetenerse" layoutX="408.0" layoutY="323.0" promptText="Por elevador" style="-fx-background-color: gray;" text="4,5,6" />
+                        <TextField fx:id="mDestino" layoutX="86.0" layoutY="366.0" promptText="Por piso" style="-fx-background-color: gray;" text="3,4" />
+                        <TextField fx:id="mLlamadaElevador" layoutX="86.0" layoutY="323.0" promptText="Por piso" style="-fx-background-color: gray;" text="1,2" />
+                        <TextField fx:id="mPuertaAbierta" layoutX="408.0" layoutY="241.0" promptText="Por elevador" style="-fx-background-color: gray;" text="3,4,1" />
+                        <TextField fx:id="mEntrePisos" layoutX="86.0" layoutY="241.0" promptText="Por elevador" style="-fx-background-color: gray;" text="2,3,1" />
+                        <TextField fx:id="mCantElevadores" layoutX="408.0" layoutY="159.0" style="-fx-background-color: gray;" text="3" />
+                        <TextField fx:id="mCantPisos" layoutX="86.0" layoutY="159.0" style="-fx-background-color: gray;" text="2" />
+                        <TextField fx:id="mPeso" layoutX="408.0" layoutY="75.0" style="-fx-background-color: gray;" text="455" />
+                        <TextField fx:id="mCantPersonas" layoutX="86.0" layoutY="76.0" style="-fx-background-color: gray;" text="33" />
                         <Label layoutX="216.0" layoutY="272.0" text="Probabilidades" textFill="WHITE">
                            <font>
                               <Font size="32.0" />
@@ -64,9 +64,25 @@
                               <Font size="32.0" />
                            </font>
                         </Label>
-                        <Button layoutX="86.0" layoutY="405.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="471.0" style="-fx-background-color: transparent; -fx-border-color: white;" text="Iniciar Simulacion" textFill="#ffffffcd">
+                        <Button fx:id="mIniciarSimulacion" layoutX="87.0" layoutY="405.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="326.0" style="-fx-background-color: transparent; -fx-border-color: white;" text="Iniciar Simulacion" textFill="#ffffffcd">
                            <font>
                               <Font size="32.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button fx:id="mCargarSimulacion" layoutX="415.0" layoutY="446.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="141.0" style="-fx-background-color: transparent; -fx-border-color: white;" text="Cargar" textFill="#ffffffcd">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button fx:id="mGuardarSimulacion" layoutX="415.0" layoutY="405.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="141.0" style="-fx-background-color: transparent; -fx-border-color: white;" text="Guardar" textFill="#ffffffcd">
+                           <font>
+                              <Font size="16.0" />
                            </font>
                            <opaqueInsets>
                               <Insets />
@@ -85,19 +101,19 @@
                               <Image url="@../../Imagenes/ascensor.png" />
                            </image>
                         </ImageView>
-                        <Label alignment="BOTTOM_CENTER" layoutX="292.0" layoutY="111.0" prefHeight="36.0" prefWidth="92.0" style="-fx-background-color: transparent;" text="15">
+                        <Label fx:id="ePisoActualElevador" alignment="BOTTOM_CENTER" layoutX="292.0" layoutY="111.0" prefHeight="36.0" prefWidth="92.0" style="-fx-background-color: transparent;" text="15">
                            <font>
                               <Font name="Courier New" size="25.0" />
                            </font>
                         </Label>
-                        <Button layoutX="485.0" layoutY="266.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="27.0" style="-fx-background-color: transparent; -fx-border-color: green;" text="^">
+                        <Button fx:id="eSubir" disable="true" layoutX="485.0" layoutY="266.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="28.455" style="-fx-background-color: transparent; -fx-border-color: green;" text="^">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Button>
-                        <Button layoutX="485.0" layoutY="304.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="27.0" style="-fx-background-color: transparent; -fx-border-color: gray;" text="v" />
-                        <Button layoutX="161.0" layoutY="304.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="27.0" style="-fx-background-color: transparent; -fx-border-color: gray;" text="-" textFill="RED" />
-                        <Button layoutX="161.0" layoutY="266.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="27.0" style="-fx-background-color: transparent; -fx-border-color: gray;" text="+" textFill="GREEN">
+                        <Button fx:id="eBajar" disable="true" layoutX="485.0" layoutY="301.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="28.455" style="-fx-background-color: transparent; -fx-border-color: gray;" text="v" />
+                        <Button fx:id="eOffSensorPiso" disable="true" layoutX="161.0" layoutY="301.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="28.455" style="-fx-background-color: transparent; -fx-border-color: gray;" text="-" textFill="RED" />
+                        <Button fx:id="eOnSensorPiso" disable="true" layoutX="161.0" layoutY="266.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="28.455" style="-fx-background-color: transparent; -fx-border-color: gray;" text="+" textFill="GREEN">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -107,7 +123,7 @@
                               <Font name="Colonna MT" size="38.0" />
                            </font>
                         </Label>
-                        <Label alignment="BOTTOM_CENTER" layoutX="46.0" layoutY="93.0" prefHeight="45.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="1">
+                        <Label fx:id="ePiso" alignment="BOTTOM_CENTER" layoutX="46.0" layoutY="93.0" prefHeight="45.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="1">
                            <font>
                               <Font name="Courier New" size="30.0" />
                            </font>
@@ -124,33 +140,38 @@
                               <Image url="@../../Imagenes/ascensordentro.png" />
                            </image>
                         </ImageView>
-                        <Label alignment="BOTTOM_CENTER" layoutX="284.0" layoutY="100.0" prefHeight="36.0" prefWidth="92.0" style="-fx-background-color: transparent;" text="15">
+                        <Label fx:id="iPisoActual" alignment="BOTTOM_CENTER" layoutX="284.0" layoutY="100.0" prefHeight="36.0" prefWidth="92.0" style="-fx-background-color: transparent;" text="15">
                            <font>
                               <Font name="Courier New" size="25.0" />
                            </font>
                         </Label>
-                        <Button layoutX="77.0" layoutY="237.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: red; -fx-border-color: black;" text="Emergency">
+                        <Button fx:id="iEmergencia" disable="true" layoutX="77.0" layoutY="237.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" style="-fx-border-color: red; -fx-background-color: transparent;" text="Emergencia" textFill="#681b1b">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Button>
-                        <Button layoutX="76.0" layoutY="279.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: gray;" text="Stop">
+                        <Button fx:id="iDetenerse" disable="true" layoutX="76.0" layoutY="279.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: gray;" text="Detenerse">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Button>
-                        <Button layoutX="76.0" layoutY="320.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: gray;" text="Weight" />
-                        <Label alignment="CENTER" layoutX="76.0" layoutY="196.0" prefHeight="31.0" prefWidth="100.0" text="Detenerse">
+                        <Button fx:id="iPesoActual" disable="true" layoutX="76.0" layoutY="320.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: gray;" text="Peso" />
+                        <Label fx:id="iDireccionPrevista" alignment="CENTER" layoutX="272.0" layoutY="8.0" prefHeight="31.0" prefWidth="100.0" text="Detenerse">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" layoutX="280.0" layoutY="14.0" prefHeight="31.0" prefWidth="100.0" text="Subiendo">
+                        <Label fx:id="iDireccionActual" alignment="CENTER" layoutX="330.0" layoutY="164.0" prefHeight="31.0" prefWidth="100.0" text="Subiendo">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
                      </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Log">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
         </tabs>

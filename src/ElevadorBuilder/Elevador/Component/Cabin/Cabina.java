@@ -34,6 +34,11 @@ public class Cabina {
         this.botonDetenerse = new BotonDetenerse();
         this.interruptorEmergencia = new InterruptorEmergencia();
     }
+    public void Moverse(){
+        pisoActual=move.Moverse(pisoActual);
+    }
+
+    /*********************************************************************************************************************************************************************************************/
 
     public DireccionElevador getDireccionPrevista() {
         return direccionPrevista;

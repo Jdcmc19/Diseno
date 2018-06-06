@@ -15,7 +15,12 @@ public class SensorPiso {
     }
 
     private void enviarInterrupcion(){}
-    private void close(){}
+    private void close(){
+        isClosed = true;
+    }
+    private void abrir(){
+        isClosed = false;
+    }
 
     public Boolean getClosed() {
         return isClosed;

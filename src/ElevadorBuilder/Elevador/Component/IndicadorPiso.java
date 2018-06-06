@@ -9,8 +9,12 @@ public class IndicadorPiso {
         this.isOn = false;
     }
 
-    private void encender(){}
-    private void apagar(){}
+    private void encender(){
+        isOn=true;
+    }
+    private void apagar(){
+        isOn=false;
+    }
 
     public int getPiso() {
         return piso;

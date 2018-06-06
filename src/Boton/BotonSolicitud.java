@@ -9,8 +9,12 @@ public abstract class BotonSolicitud {
         this.isOn = false;
     }
 
-    private void encender(){}
-    private void apagar(){}
+    private void encender(){
+        isOn=true;
+    }
+    private void apagar(){
+        isOn=false;
+    }
     private void bloquear(){}
     abstract void enviarSolicitud();
 }

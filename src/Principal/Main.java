@@ -10,7 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class Main extends Application {
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -23,6 +26,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
+
+
         /*
         ParameterTO.setCantidadPisos(6);
         ParameterTO.setMaxPeso(450);
@@ -33,4 +39,11 @@ public class Main extends Application {
 
         System.out.println(controlElevador.toString());*/
     }
+
+
+
+
+
+
+
 }
