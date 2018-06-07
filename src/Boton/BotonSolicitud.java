@@ -16,5 +16,5 @@ public abstract class BotonSolicitud {
         isOn=false;
     }
     private void bloquear(){}
-    abstract void enviarSolicitud();
+    public abstract String enviarSolicitud();
 }

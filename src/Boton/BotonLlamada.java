@@ -10,7 +10,7 @@ public class BotonLlamada extends BotonSolicitud{
     }
 
     @Override
-    void enviarSolicitud() {
-
+    public String enviarSolicitud() {
+return "";
     }
 }

@@ -8,8 +8,8 @@ public class Subir implements Mover {
     }
 
     @Override
-    public int Moverse(int piso) {
-        if(piso==ParameterTO.getCantidadPisos())
+    public int Moverse(int piso, ParameterTO parameterTO) {
+        if(piso==parameterTO.getCantidadPisos())
             return piso;
         else
             return piso+1;

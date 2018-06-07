@@ -3,94 +3,97 @@ package ParameterDTO;
 import java.util.ArrayList;
 
 public class ParameterTO {
-    private static int cantidadPisos;
-    private static int cantidadElevadores;
-    private static int maxCantidadPersonas;
-    private static int maxPeso;
-    private static ArrayList<Integer> probabilidadesLlamada;
-    private static ArrayList<Integer>  probabilidadesDestino;
-    private static ArrayList<Integer>  probabilidadesDetener;
-    private static ArrayList<Integer>  probabilidadesEmergencia;
-    private static ArrayList<Integer>  tiempoTransicion;
-    private static ArrayList<Integer>  tiempoPuertaAbierta;
+    private int cantidadPisos;
+    private int cantidadElevadores;
+    private int maxCantidadPersonas;
+    private int maxPeso;
+    private ArrayList<Integer> probabilidadesLlamada;
+    private ArrayList<Integer>  probabilidadesDestino;
+    private ArrayList<Integer>  probabilidadesDetener;
+    private ArrayList<Integer>  probabilidadesEmergencia;
+    private ArrayList<Integer>  tiempoTransicion;
+    private ArrayList<Integer>  tiempoPuertaAbierta;
 
-    public static int getCantidadPisos() {
+    public ParameterTO() {
+    }
+
+    public int getCantidadPisos() {
         return cantidadPisos;
     }
 
-    public static void setCantidadPisos(int cantidadPisos) {
-        ParameterTO.cantidadPisos = cantidadPisos;
+    public void setCantidadPisos(int cantidadPisos) {
+        this.cantidadPisos = cantidadPisos;
     }
 
-    public static int getMaxPeso() {
+    public int getMaxPeso() {
         return maxPeso;
     }
 
-    public static void setMaxPeso(int maxPeso) {
-        ParameterTO.maxPeso = maxPeso;
+    public void setMaxPeso(int maxPeso) {
+        this.maxPeso = maxPeso;
     }
 
-    public static int getCantidadElevadores() {
+    public int getCantidadElevadores() {
         return cantidadElevadores;
     }
 
-    public static void setCantidadElevadores(int cantidadElevadores) {
-        ParameterTO.cantidadElevadores = cantidadElevadores;
+    public void setCantidadElevadores(int cantidadElevadores) {
+        this.cantidadElevadores = cantidadElevadores;
     }
 
-    public static int getMaxCantidadPersonas() {
+    public int getMaxCantidadPersonas() {
         return maxCantidadPersonas;
     }
 
-    public static void setMaxCantidadPersonas(int maxCantidadPersonas) {
-        ParameterTO.maxCantidadPersonas = maxCantidadPersonas;
+    public void setMaxCantidadPersonas(int maxCantidadPersonas) {
+        this.maxCantidadPersonas = maxCantidadPersonas;
     }
 
-    public static ArrayList<Integer> getProbabilidadesLlamada() {
+    public ArrayList<Integer> getProbabilidadesLlamada() {
         return probabilidadesLlamada;
     }
 
-    public static void setProbabilidadesLlamada(ArrayList<Integer> probabilidadesLlamada) {
-        ParameterTO.probabilidadesLlamada = probabilidadesLlamada;
+    public void setProbabilidadesLlamada(ArrayList<Integer> probabilidadesLlamada) {
+        this.probabilidadesLlamada = probabilidadesLlamada;
     }
 
-    public static ArrayList<Integer> getProbabilidadesDestino() {
+    public ArrayList<Integer> getProbabilidadesDestino() {
         return probabilidadesDestino;
     }
 
-    public static void setProbabilidadesDestino(ArrayList<Integer> probabilidadesDestino) {
-        ParameterTO.probabilidadesDestino = probabilidadesDestino;
+    public void setProbabilidadesDestino(ArrayList<Integer> probabilidadesDestino) {
+        this.probabilidadesDestino = probabilidadesDestino;
     }
 
-    public static ArrayList<Integer> getProbabilidadesDetener() {
+    public ArrayList<Integer> getProbabilidadesDetener() {
         return probabilidadesDetener;
     }
 
-    public static void setProbabilidadesDetener(ArrayList<Integer> probabilidadesDetener) {
-        ParameterTO.probabilidadesDetener = probabilidadesDetener;
+    public void setProbabilidadesDetener(ArrayList<Integer> probabilidadesDetener) {
+        this.probabilidadesDetener = probabilidadesDetener;
     }
 
-    public static ArrayList<Integer> getProbabilidadesEmergencia() {
+    public ArrayList<Integer> getProbabilidadesEmergencia() {
         return probabilidadesEmergencia;
     }
 
-    public static void setProbabilidadesEmergencia(ArrayList<Integer> probabilidadesEmergencia) {
-        ParameterTO.probabilidadesEmergencia = probabilidadesEmergencia;
+    public void setProbabilidadesEmergencia(ArrayList<Integer> probabilidadesEmergencia) {
+        this.probabilidadesEmergencia = probabilidadesEmergencia;
     }
 
-    public static ArrayList<Integer> getTiempoTransicion() {
+    public ArrayList<Integer> getTiempoTransicion() {
         return tiempoTransicion;
     }
 
-    public static void setTiempoTransicion(ArrayList<Integer> tiempoTransicion) {
-        ParameterTO.tiempoTransicion = tiempoTransicion;
+    public void setTiempoTransicion(ArrayList<Integer> tiempoTransicion) {
+        this.tiempoTransicion = tiempoTransicion;
     }
 
-    public static ArrayList<Integer> getTiempoPuertaAbierta() {
+    public ArrayList<Integer> getTiempoPuertaAbierta() {
         return tiempoPuertaAbierta;
     }
 
-    public static void setTiempoPuertaAbierta(ArrayList<Integer> tiempoPuertaAbierta) {
-        ParameterTO.tiempoPuertaAbierta = tiempoPuertaAbierta;
+    public void setTiempoPuertaAbierta(ArrayList<Integer> tiempoPuertaAbierta) {
+        this.tiempoPuertaAbierta = tiempoPuertaAbierta;
     }
 }

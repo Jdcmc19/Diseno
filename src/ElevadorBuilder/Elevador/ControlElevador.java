@@ -82,11 +82,11 @@ public class ControlElevador {
         this.cabina = cabina;
     }
 
-    public ArrayList<BotonDestino> getBotonDestino() {
+    public ArrayList<BotonDestino> getBotonesDestino() {
         return botonDestino;
     }
 
-    public void setBotonDestino(ArrayList<BotonDestino> botonDestino) {
+    public void setBotonesDestino(ArrayList<BotonDestino> botonDestino) {
         this.botonDestino = botonDestino;
     }
 }

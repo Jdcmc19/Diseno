@@ -9,7 +9,6 @@ public class Json implements File {
 
     @Override
     public void escribir() {
-
     }
 
     @Override

@@ -4,5 +4,5 @@ public class BotonDetenerse {
     public BotonDetenerse() {
     }
 
-    private void enviarSolicitud(){}
+    public String enviarSolicitud(){return"btoo deterne";}
 }

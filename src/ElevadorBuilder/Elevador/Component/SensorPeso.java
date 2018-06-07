@@ -14,7 +14,7 @@ public class SensorPeso{
         return "\n\tCantidadMax: "+cantidadMaxima+"\n\tCantidadActual: "+cantidadActual;
     }
 
-    private void enviarInterrupcion(){}
+    public String enviarSolicitud(){return"btoo deterne";}
 
     public int getCantidadMaxima() {
         return cantidadMaxima;

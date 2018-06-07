@@ -14,11 +14,11 @@ public class SensorPiso {
         return "\n\tisClosed: "+isClosed+"\n\tPiso: "+piso;
     }
 
-    private void enviarInterrupcion(){}
-    private void close(){
+    public String enviarSolicitud(){return"btoo deterne";}
+    public void close(){
         isClosed = true;
     }
-    private void abrir(){
+    public void abrir(){
         isClosed = false;
     }
 

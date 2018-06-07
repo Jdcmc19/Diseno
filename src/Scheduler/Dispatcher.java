@@ -9,37 +9,57 @@ import ParameterDTO.ParameterTO;
 import Scheduler.ModeStrategy.Strategy;
 
 import java.util.ArrayList;
+import java.util.spi.AbstractResourceBundleProvider;
 
 public class Dispatcher {
+    private ParameterTO parameterTO;
     private Strategy calendarizador;
-    private ArrayList<BotonLlamada> botonesLlamadas;
+    private ArrayList<ArrayList<BotonLlamada>> botonesLlamadas;
     private ArrayList<ControlElevador> controlesElevador;
 
-    public Dispatcher(Strategy calendarizador, ArrayList<BotonLlamada> botonesLlamadas) {
+    public Dispatcher(Strategy calendarizador, ArrayList<ArrayList<BotonLlamada>> botonesLlamadas) {
         this.calendarizador = calendarizador;
         this.botonesLlamadas = botonesLlamadas;
     }
 
     public Dispatcher(Strategy calendarizador) {
         this.calendarizador = calendarizador;
-        BotonLlamada bl;
-        for(int i=0;i<ParameterTO.getCantidadPisos()-2;i++){
-            bl = new BotonLlamada(i+2,DireccionLlamada.SUBE);
-            botonesLlamadas.add(bl);
-            bl = new BotonLlamada(i+2,DireccionLlamada.BAJA);
-            botonesLlamadas.add(bl);
+        BotonLlamada b1 = new BotonLlamada(1,DireccionLlamada.SUBE);
+        ArrayList<BotonLlamada> tmp = new ArrayList<>();
+        tmp.add(b1);
+        botonesLlamadas.add(tmp);
+        for(int i=0;i<parameterTO.getCantidadPisos()-2;i++){
+            tmp = new ArrayList<>();
+            b1 = new BotonLlamada(i+2,DireccionLlamada.SUBE);
+            tmp.add(b1);
+            b1 = new BotonLlamada(i+2,DireccionLlamada.BAJA);
+            tmp.add(b1);
+            botonesLlamadas.add(tmp);
         }
+        tmp = new ArrayList<>();
+        b1 = new BotonLlamada(parameterTO.getCantidadPisos(),DireccionLlamada.BAJA);
+        tmp.add(b1);
+        botonesLlamadas.add(tmp);
 
     }
     public void createElevadores(Builder builder){
         Director director = new Director(builder);
         ControlElevador controlElevador;
         controlesElevador = new ArrayList<>();
-        for (int i=0;i<ParameterTO.getCantidadPisos();i++){
+        for (int i=0;i<parameterTO.getCantidadPisos();i++){
             controlElevador = director.contruir();
             controlesElevador.add(controlElevador);
         }
     }
+
+    public ParameterTO getParameterTO() {
+        return parameterTO;
+    }
+
+    public void setParameterTO(ParameterTO parameterTO) {
+        this.parameterTO = parameterTO;
+    }
+
     public Strategy getCalendarizador() {
         return calendarizador;
     }
@@ -48,11 +68,11 @@ public class Dispatcher {
         this.calendarizador = calendarizador;
     }
 
-    public ArrayList<BotonLlamada> getBotonesLlamadas() {
+    public ArrayList<ArrayList<BotonLlamada>> getBotonesLlamadas() {
         return botonesLlamadas;
     }
 
-    public void setBotonesLlamadas(ArrayList<BotonLlamada> botonesLlamadas) {
+    public void setBotonesLlamadas(ArrayList<ArrayList<BotonLlamada>> botonesLlamadas) {
         this.botonesLlamadas = botonesLlamadas;
     }
 

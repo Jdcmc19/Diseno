@@ -10,6 +10,7 @@ import ElevadorBuilder.Elevador.ControlElevador;
 import java.util.ArrayList;
 
 public interface Builder {
+
     Cabina contruirCabina();
     ArrayList<SensorPiso> contruirSensorPiso();
     SensorPeso contruirSensorPeso();

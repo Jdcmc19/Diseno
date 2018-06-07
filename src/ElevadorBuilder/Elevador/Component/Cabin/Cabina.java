@@ -2,8 +2,10 @@ package ElevadorBuilder.Elevador.Component.Cabin;
 
 import ElevadorBuilder.Elevador.Component.Cabin.Move.MoveTypes.Subir;
 import ElevadorBuilder.Elevador.Component.Cabin.Move.Mover;
+import ParameterDTO.ParameterTO;
 
 public class Cabina {
+    private ParameterTO parameterTO;
     private DireccionElevador direccionPrevista;
     private DireccionElevador direccionActual;
     private int pisoActual;
@@ -35,11 +37,19 @@ public class Cabina {
         this.interruptorEmergencia = new InterruptorEmergencia();
     }
     public void Moverse(){
-        pisoActual=move.Moverse(pisoActual);
+        pisoActual=move.Moverse(pisoActual, parameterTO);
     }
 
-    /*********************************************************************************************************************************************************************************************/
 
+
+    /*********************************************************************************************************************************************************************************************/
+    public ParameterTO getParameterTO() {
+        return parameterTO;
+    }
+
+    public void setParameterTO(ParameterTO parameterTO) {
+        this.parameterTO = parameterTO;
+    }
     public DireccionElevador getDireccionPrevista() {
         return direccionPrevista;
     }

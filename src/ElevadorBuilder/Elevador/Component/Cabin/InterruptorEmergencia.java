@@ -4,5 +4,5 @@ public class InterruptorEmergencia {
     public InterruptorEmergencia() {
     }
 
-    private void enviarSolicitud(){}
+    public String enviarSolicitud(){return"btoo deterne";}
 }
