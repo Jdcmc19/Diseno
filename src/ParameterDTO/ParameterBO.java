@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ParameterBO {
 
-    private ParameterTO parametros;
+    private ParameterTO parametros = new ParameterTO();
 
     public ParameterTO getParametros(){
         return parametros;

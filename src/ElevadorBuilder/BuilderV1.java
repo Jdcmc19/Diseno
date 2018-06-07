@@ -7,7 +7,7 @@ import ElevadorBuilder.Elevador.Component.SensorPeso;
 import ElevadorBuilder.Elevador.Component.SensorPiso;
 import ElevadorBuilder.Elevador.ControlElevador;
 import ParameterDTO.ParameterTO;
-import com.sun.javafx.tools.packager.Param;
+//import com.sun.javafx.tools.packager.Param;
 
 import java.util.ArrayList;
 
