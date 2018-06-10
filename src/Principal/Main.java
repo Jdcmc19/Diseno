@@ -1,10 +1,7 @@
 package Principal;
 
-import ElevadorBuilder.BuilderV1;
-import ElevadorBuilder.Director;
-import ElevadorBuilder.Elevador.ControlElevador;
 import FileStrategy.Context;
-import FileStrategy.File;
+
 import FileStrategy.Types.Text;
 import FileStrategy.Types.Xml;
 import ParameterDTO.*;
@@ -14,11 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sun.misc.Contended;
 
-import java.util.ArrayList;
-
-import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -31,14 +24,14 @@ public class Main extends Application {
         primaryStage.show();
         ParameterBO pBO;
         Context file;
-        file = new Context(new Xml());
+        /*file = new Context(new Xml());
         pBO = file.leer("pruebaXml.xml");
         //file.escribir("pruebaXml", pBO);
         file = new Context(new Json());
         //pBO = file.leer("pruebaJason.js");
         file.escribir("pruebaJason", pBO);
         file = new Context(new Text());
-        file.escribir("pruebaTxt", pBO);
+        file.escribir("pruebaTxt", pBO);*/
         //pBO = file.leer("pruebaTxt.txt");
     }
 
