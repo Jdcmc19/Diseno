@@ -36,7 +36,7 @@ public class Cabina {
         this.botonDetenerse = new BotonDetenerse();
         this.interruptorEmergencia = new InterruptorEmergencia();
     }
-    public void Moverse(){
+    public void moverse(){
         pisoActual=move.Moverse(pisoActual, parameterTO);
     }
 

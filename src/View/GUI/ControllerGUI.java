@@ -1,5 +1,6 @@
 package View.GUI;
 
+import Boton.DireccionLlamada;
 import ElevadorBuilder.BuilderV1;
 import ElevadorBuilder.Elevador.Component.Cabin.DireccionElevador;
 import ParameterDTO.ParameterTO;
@@ -66,23 +67,23 @@ public class ControllerGUI implements Initializable {
             return false;
         }return false;
     }
-    public void botonLlamada(int piso, int direccionElevador){
-         String a= dispatcher.getBotonesLlamadas().get(piso-1).get(direccionElevador).enviarSolicitud();
+
+    /**********************************INTERRUPCIONES***********************************/
+    public void botonDestinoInterrupcion(int piso, int elevador){
+        dispatcher.botonDestinoInterrupcion(piso,elevador);
     }
-    public void botonDestino(int elevador,int piso){
-        String a= dispatcher.getControlesElevador().get(elevador-1).getBotonesDestino().get(piso-1).enviarSolicitud();
+    public void sensorPisoInterrupcion(int piso, int elevador){
+        dispatcher.sensorPisoInterrupcion(piso, elevador);
     }
-    public void interruptorEmergencia(int elevador){
-        String a= dispatcher.getControlesElevador().get(elevador-1).getCabina().getInterruptorEmergencia().enviarSolicitud();
+    public void luzLlegadaInterrupcion(int elevador){
+        dispatcher.luzLlegadaInterrupcion(elevador);
     }
-    public void botonDetenerse(int elevador){
-        String a= dispatcher.getControlesElevador().get(elevador-1).getCabina().getBotonDetenerse().enviarSolicitud();
+    public void botonLlamadaInterrupcion(int piso, DireccionLlamada direccionLlamada){
+        dispatcher.botonLlamadaInterrupcion(piso,direccionLlamada);
     }
-    public void sensorPeso(int elevador){
-        String a= dispatcher.getControlesElevador().get(elevador-1).getSensorPeso().enviarSolicitud();
-    }
-    public void sensorPiso(int piso){
-        String a= dispatcher.getControlesElevador().get(piso-1).getSensorPiso().get(piso-1).enviarSolicitud();
+    public void controlesMotorInterrupcion(int elevador){
+        dispatcher.controlesMotorInterrupcion(elevador);
+
     }
     public boolean revisarValoresSimples(){
         if(arrayListFromString(mCantPersonas.getText()).size()!=1)return false;

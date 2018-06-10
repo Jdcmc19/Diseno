@@ -5,12 +5,13 @@ import ElevadorBuilder.Elevador.Component.Cabin.Cabina;
 import ElevadorBuilder.Elevador.Component.IndicadorPiso;
 import ElevadorBuilder.Elevador.Component.SensorPeso;
 import ElevadorBuilder.Elevador.Component.SensorPiso;
+import Interrupciones.Solicitud;
 
 import java.util.ArrayList;
 
 public class ControlElevador {
-    private ArrayList<Integer> solicitudes;
-    private ArrayList<Integer> destinos;
+    private ArrayList<Solicitud> solicitudes;
+    private ArrayList<Byte> destinos;
 
     private SensorPeso sensorPeso;
     private ArrayList<IndicadorPiso> indicadorPiso;
@@ -33,20 +34,31 @@ public class ControlElevador {
         return "Solicitudes: "+solicitudes.size()+"\nDestinos: "+destinos.size()+"\nSensorPeso: "+sensorPeso.toString()+"\nIndicadorPiso: "+indicadorPiso.size()+
                 "\nSensorPiso: "+sensorPiso.size()+"\nCabina: "+cabina.toString()+"\nBotonDestino: "+botonDestino.size();
     }
+    /******************************************************************************************************************/
+    public void cumplirSolicitudes(){
+        ControlElevador ce;
+        for(int i=0;i<solicitudes.size();i++){
+            ce = solicitudes.get(i).cumplirSolicitud(this);
+            this.botonDestino = ce.getBotonesDestino();
+            this.cabina = ce.getCabina();
+            this.sensorPiso = ce.getSensorPiso();
+        }
+    }
 
-    public ArrayList getSolicitudes() {
+    /******************************************************************************************************************/
+    public ArrayList<Solicitud> getSolicitudes() {
         return solicitudes;
     }
 
-    public void setSolicitudes(ArrayList solicitudes) {
+    public void setSolicitudes(ArrayList<Solicitud> solicitudes) {
         this.solicitudes = solicitudes;
     }
 
-    public ArrayList<Integer> getDestinos() {
+    public ArrayList<Byte> getDestinos() {
         return destinos;
     }
 
-    public void setDestinos(ArrayList<Integer> destinos) {
+    public void setDestinos(ArrayList<Byte> destinos) {
         this.destinos = destinos;
     }
 

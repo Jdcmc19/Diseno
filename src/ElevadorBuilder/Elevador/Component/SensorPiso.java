@@ -22,8 +22,8 @@ public class SensorPiso {
         isClosed = false;
     }
 
-    public Boolean getClosed() {
-        return isClosed;
+    public Boolean isOpen() {
+        return !isClosed;
     }
 
     public void setClosed(Boolean closed) {

@@ -13,4 +13,14 @@ public class BotonLlamada extends BotonSolicitud{
     public String enviarSolicitud() {
 return "";
     }
+
+    public DireccionLlamada getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(DireccionLlamada direccion) {
+        this.direccion = direccion;
+    }
+
+
 }

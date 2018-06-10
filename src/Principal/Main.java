@@ -12,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 
 public class Main extends Application {
 
@@ -36,7 +38,15 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        // launch(args);
+        ArrayList<Integer> a =new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+
+        System.out.println(a);
+        a.set(1,5);
+        System.out.println(a);
 
 
 
@@ -50,11 +60,4 @@ public class Main extends Application {
 
         System.out.println(controlElevador.toString());*/
     }
-
-
-
-
-
-
-
 }
