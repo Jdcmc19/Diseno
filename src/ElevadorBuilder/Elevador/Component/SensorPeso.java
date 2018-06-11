@@ -14,6 +14,12 @@ public class SensorPeso{
         return "\n\tCantidadMax: "+cantidadMaxima+"\n\tCantidadActual: "+cantidadActual;
     }
 
+    public Boolean overFlow(){
+        if(cantidadActual>=cantidadMaxima)
+            return true;
+        return false;
+    }
+
     public String enviarSolicitud(){return"btoo deterne";}
 
     public int getCantidadMaxima() {

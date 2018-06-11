@@ -38,17 +38,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // launch(args);
-        ArrayList<Integer> a =new ArrayList<>();
-        a.add(1);
-        a.add(2);
-        a.add(3);
-
-        System.out.println(a);
-        a.set(1,5);
-        System.out.println(a);
-
-
+        launch(args);
 
         /*
         ParameterTO.setCantidadPisos(6);

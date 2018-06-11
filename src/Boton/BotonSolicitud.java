@@ -15,6 +15,10 @@ public abstract class BotonSolicitud {
     public void apagar(){
         isOn=false;
     }
-    public void bloquear(){}
+    public Boolean prendido(){
+        if(isOn)
+            return true;
+        return false;
+    }
     public abstract String enviarSolicitud();
 }

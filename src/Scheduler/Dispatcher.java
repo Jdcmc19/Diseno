@@ -18,6 +18,7 @@ public class Dispatcher {
     private ArrayList<Solicitud> solicitudes;
     private ArrayList<ArrayList<BotonLlamada>> botonesLlamadas;
     private ArrayList<ControlElevador> controlesElevador;
+    private Integer[] calendarizado;
 
     public Dispatcher(Strategy calendarizador, ArrayList<ArrayList<BotonLlamada>> botonesLlamadas) {
         this.calendarizador = calendarizador;
@@ -44,7 +45,11 @@ public class Dispatcher {
         b1 = new BotonLlamada(parameterTO.getCantidadPisos(),DireccionLlamada.BAJA);
         tmp.add(b1);
         botonesLlamadas.add(tmp);
-
+        calendarizado = new Integer[parameterTO.getCantidadPisos()];
+    }
+    public void calendarizar(DireccionLlamada dr,int partida){
+        int elevador = calendarizador.Calendarizar(dr,partida,this.controlesElevador);
+        calendarizado[partida-1] = elevador;
     }
     public void createElevadores(Builder builder){
         Director director = new Director(builder);
@@ -82,6 +87,22 @@ public class Dispatcher {
     public void controlesMotorInterrupcion(int elevador,int control){
         IntControlesMotor intControlesMotor = new IntControlesMotor((byte)elevador,(byte)control);
         solicitudes.add(intControlesMotor);
+    }
+
+    public ArrayList<Solicitud> getSolicitudes() {
+        return solicitudes;
+    }
+
+    public void setSolicitudes(ArrayList<Solicitud> solicitudes) {
+        this.solicitudes = solicitudes;
+    }
+
+    public Integer[] getCalendarizado() {
+        return calendarizado;
+    }
+
+    public void setCalendarizado(Integer[] calendarizado) {
+        this.calendarizado = calendarizado;
     }
 
     /***********************************************************************************/
