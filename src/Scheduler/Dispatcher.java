@@ -13,13 +13,18 @@ import java.util.ArrayList;
 import java.util.Random;
 //import java.util.spi.AbstractResourceBundleProvider;
 
-public class Dispatcher {
+public class Dispatcher{
     private ParameterTO parameterTO;
     private Strategy calendarizador;
     private ArrayList<Solicitud> solicitudes;
     private ArrayList<ArrayList<BotonLlamada>> botonesLlamadas;
     private ArrayList<ControlElevador> controlesElevador;
     private Integer[] calendarizado;
+
+    public Dispatcher(ArrayList<ArrayList<BotonLlamada>> botonesLlamadas,ArrayList<ControlElevador> controlesElevador){
+        this.botonesLlamadas = botonesLlamadas;
+        this.controlesElevador = controlesElevador;
+    }
 
     public Dispatcher(Strategy calendarizador, ArrayList<ArrayList<BotonLlamada>> botonesLlamadas) {
         this.calendarizador = calendarizador;
@@ -66,13 +71,22 @@ public class Dispatcher {
     }
 
     public void delegarSolicitudes(){
-        Dispatcher d;
-        for(int i=0;i<solicitudes.size();i++){
-            d=solicitudes.get(i).delegarSolicitud(this);
-            this.botonesLlamadas = d.getBotonesLlamadas();
-            this.controlesElevador = d.getControlesElevador();
-        }
+
+        Thread t = new Thread(){
+            public void run() {
+                Dispatcher d;
+                while(true) {
+                    if(solicitudes.size()>0){
+                        d=solicitudes.get(0).delegarSolicitud(new Dispatcher(botonesLlamadas, controlesElevador));
+                        botonesLlamadas = d.getBotonesLlamadas();
+                        controlesElevador = d.getControlesElevador();
+                    }
+                }
+            }
+        };
+        t.start();
     }
+
     public void crearHilosElevadores(){
         for(int i=0;i<controlesElevador.size();i++){
             controlesElevador.get(i).crearHilo();//crear funcion
@@ -86,41 +100,45 @@ public class Dispatcher {
         crearHiloDispatcher();
         crearHilosElevadores();
         Boolean bandera = true;
-        while(true){
-            while(bandera){
-                for(int i=0;i<parameterTO.getCantidadElevadores();i++){//por cada elevador
-                    Random rand = new Random();
-                    if(rand.nextInt(100)<parameterTO.getProbabilidadesDetener().get(i)) {//Posibilidad de detenerse
-                        controlesMotorInterrupcion(i,4);
-                    }
+        Thread hilo = new Thread(
+                () -> {
+            while (true) {
+                while (bandera) {
+                    for (int i = 0; i < parameterTO.getCantidadElevadores(); i++) {//por cada elevador
+                        Random rand = new Random();
+                        if (rand.nextInt(100) < parameterTO.getProbabilidadesDetener().get(i)) {//Posibilidad de detenerse
+                            controlesMotorInterrupcion(i, 4);
+                        }
 
-                    if(rand.nextInt(100)<parameterTO.getProbabilidadesEmergencia().get(i)) {//Posibilidad de emergencia
-                        controlesMotorInterrupcion(i,4);
-                    }
-                    for(int e=0;e<parameterTO.getCantidadPisos();e++){//Posibilidad de ir a cada piso
-                        if(rand.nextInt(100)<parameterTO.getProbabilidadesDestino().get(e)){
-                            botonDestinoInterrupcion(e,i);
+                        if (rand.nextInt(100) < parameterTO.getProbabilidadesEmergencia().get(i)) {//Posibilidad de emergencia
+                            controlesMotorInterrupcion(i, 4);
+                        }
+                        for (int e = 0; e < parameterTO.getCantidadPisos(); e++) {//Posibilidad de ir a cada piso
+                            if (rand.nextInt(100) < parameterTO.getProbabilidadesDestino().get(e)) {
+                                botonDestinoInterrupcion(e, i);
+                            }
                         }
                     }
-                }
-                for(int i=0;i<parameterTO.getCantidadPisos();i++){
-                    Random r = new Random();
-                    if(r.nextInt(100)<parameterTO.getProbabilidadesLlamada().get(i)){
-                        if(i==0){
-                            botonLlamadaInterrupcion(i,DireccionLlamada.SUBE);
-                        }else if(i==parameterTO.getCantidadPisos()-1){
-                            botonLlamadaInterrupcion(i,DireccionLlamada.BAJA);
-                        }else{
-                            if(r.nextBoolean())
-                                botonLlamadaInterrupcion(i,DireccionLlamada.BAJA);
-                            else
-                                botonLlamadaInterrupcion(i,DireccionLlamada.SUBE);
+                    for (int i = 0; i < parameterTO.getCantidadPisos(); i++) {
+                        Random r = new Random();
+                        if (r.nextInt(100) < parameterTO.getProbabilidadesLlamada().get(i)) {
+                            if (i == 0) {
+                                botonLlamadaInterrupcion(i, DireccionLlamada.SUBE);
+                            } else if (i == parameterTO.getCantidadPisos() - 1) {
+                                botonLlamadaInterrupcion(i, DireccionLlamada.BAJA);
+                            } else {
+                                if (r.nextBoolean())
+                                    botonLlamadaInterrupcion(i, DireccionLlamada.BAJA);
+                                else
+                                    botonLlamadaInterrupcion(i, DireccionLlamada.SUBE);
+                            }
                         }
                     }
+                    //TODO SLEEP DE UT
                 }
-                //TODO SLEEP DE UT
             }
         }
+        );
 
     }
     /**********************************INTERRUPCIONES***********************************/

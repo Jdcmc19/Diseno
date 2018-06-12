@@ -31,6 +31,7 @@ public class ControllerGUI implements Initializable {
     Dispatcher dispatcher;
     ParameterTO parameterTO = new ParameterTO();
     ArrayList<Button> botonesDestino = new ArrayList<>();
+    Thread t;
     /*MENU PRINCIPAL*/
     @FXML
     TextField mCantPersonas,mPeso,mCantPisos,mCantElevadores,mEntrePisos,mPuertaAbierta,mLlamadaElevador,mDetenerse,mDestino,mEmergencia;
@@ -249,10 +250,26 @@ public class ControllerGUI implements Initializable {
         eOffSensorPiso.setStyle("-fx-opacity: 1.0;");
         eOnSensorPiso.setStyle("-fx-opacity: 1.0;");
     }
-    public void hiloElevador(){
-        while(true){
-            actualizarElevador(2);
+    public void hiloElevador(int elevador){
+        if(t!= null) {
+            t.stop();
         }
+        t = new Thread(() -> {
+            while (true) {
+                actualizarElevador(elevador);
+            }
+        });
+    }
+
+    public void hiloPiso(int piso){
+        if(t!= null) {
+            t.stop();
+        }
+        t = new Thread(() -> {
+            while (true) {
+                actualizarElevador(piso);
+            }
+        });
     }
     public void actualizarElevador(int elevador){//interior
         limpiarElevador();
