@@ -32,8 +32,10 @@ public class IntBotonDestino implements Solicitud{
         ArrayList<BotonDestino> aboton = controlElevador.getBotonesDestino();
         BotonDestino bd = aboton.get(piso);
         ArrayList<Byte> dest  =controlElevador.getDestinos();
-        dest.add(piso);
-        bd.encender();
+        if(controlElevador.getCabina().getPisoActual()!=piso){
+            dest.add(piso);
+            bd.encender();
+        }
         aboton.set(piso,bd);
         controlElevador.setBotonesDestino(aboton);
         return controlElevador;

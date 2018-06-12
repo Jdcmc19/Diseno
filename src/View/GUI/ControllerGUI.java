@@ -86,7 +86,7 @@ public class ControllerGUI implements Initializable {
                     eSubir.setVisible(true);
                     eBajar.setVisible(true);
                 }
-                actualizarPiso(eCbPisos.getValue());
+                hiloPiso(eCbPisos.getValue());
             }
         });
         iBtoElevador.setOnAction(event -> {
@@ -99,7 +99,7 @@ public class ControllerGUI implements Initializable {
                 iCbElevadores.setItems(as);
             }
             else{
-                actualizarElevador(iCbElevadores.getValue());
+                hiloElevador(iCbElevadores.getValue());
             }
         });
         mCargarSimulacion.setOnAction(event -> {
@@ -261,6 +261,11 @@ public class ControllerGUI implements Initializable {
         t = new Thread(() -> {
             while (true) {
                 actualizarElevador(elevador);
+                try {
+                    Thread.sleep(0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -272,6 +277,11 @@ public class ControllerGUI implements Initializable {
         t = new Thread(() -> {
             while (true) {
                 actualizarElevador(piso);
+                try {
+                    Thread.sleep(0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

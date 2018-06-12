@@ -63,6 +63,7 @@ public class ControlElevador {
                         }
                         else{
                             System.out.println("Un elevador se mantiene en el piso: "+cabina.getPisoActual());
+                            System.out.println(cabina.getPisoActual()+ "    "+destinos);
                             a = new Detenerse();
                         }
                         moverse(a);

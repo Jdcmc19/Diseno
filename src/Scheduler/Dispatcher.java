@@ -60,7 +60,7 @@ public class Dispatcher {
     }
     public int calendarizar(DireccionLlamada dr,int partida){
         int elevador = calendarizador.Calendarizar(dr,partida,this.controlesElevador);
-        calendarizado[partida-1] = elevador;
+        calendarizado[partida] = elevador;
         return elevador;
     }
     public void createElevadores(Builder builder){
@@ -173,19 +173,27 @@ public class Dispatcher {
     }
     /**********************************INTERRUPCIONES***********************************/
     public void botonDestinoInterrupcion(int piso, int elevador){//luz
+        if(solicitudes==null)
+            solicitudes=new ArrayList<>();
         IntBotonDestino intBotonDestino =new IntBotonDestino((byte)piso,(byte)elevador);
         solicitudes.add(intBotonDestino);
     }
     public void sensorPisoInterrupcion(int piso, int elevador){
+        if(solicitudes==null)
+            solicitudes=new ArrayList<>();
         IntSensorPiso intSensorPiso =new IntSensorPiso((byte)piso,(byte)elevador);
         solicitudes.add(intSensorPiso);
     }
     public void botonLlamadaInterrupcion(int piso, DireccionLlamada direccionLlamada){//luz
+        if(solicitudes==null)
+            solicitudes=new ArrayList<>();
         IntBotonLlamada intBotonLlamada = new IntBotonLlamada((byte)piso,direccionLlamada);
         solicitudes.add(intBotonLlamada);
     }
 
     public void controlesMotorInterrupcion(int elevador,int control){
+        if(solicitudes==null)
+            solicitudes=new ArrayList<>();
         IntControlesMotor intControlesMotor = new IntControlesMotor((byte)elevador,(byte)control);
         solicitudes.add(intControlesMotor);
     }
