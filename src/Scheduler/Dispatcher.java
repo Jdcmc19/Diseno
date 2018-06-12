@@ -4,6 +4,9 @@ import Boton.BotonLlamada;
 import Boton.DireccionLlamada;
 import ElevadorBuilder.Builder;
 import ElevadorBuilder.Director;
+import ElevadorBuilder.Elevador.Component.Cabin.BotonDetenerse;
+import ElevadorBuilder.Elevador.Component.Cabin.Cabina;
+import ElevadorBuilder.Elevador.Component.Cabin.InterruptorEmergencia;
 import ElevadorBuilder.Elevador.ControlElevador;
 import Interrupciones.*;
 import ParameterDTO.ParameterTO;
@@ -58,6 +61,22 @@ public class Dispatcher {
         botonesLlamadas.add(tmp);
         calendarizado = new Integer[parameterTO.getCantidadPisos()];
     }
+    public void actualizarBotonesLlamada(){
+        Boolean band;
+        for (int i =0;i<botonesLlamadas.size();i++){
+            band=true;
+            for(int e =0 ;e<controlesElevador.size();e++){
+                if(controlesElevador.get(e).getDestinos().contains(i)){
+                    band=false;
+                }
+            }
+            if(band){
+                for(int e=0;e<botonesLlamadas.get(i).size();e++){
+                    botonesLlamadas.get(i).get(e).apagar();
+                }
+            }
+        }
+    }
     public int calendarizar(DireccionLlamada dr,int partida){
         int elevador = calendarizador.Calendarizar(dr,partida,this.controlesElevador);
         calendarizado[partida] = elevador;
@@ -87,7 +106,7 @@ public class Dispatcher {
                         solicitudes.remove(0);
                     }
                     try {
-                        Thread.sleep(250);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -113,6 +132,7 @@ public class Dispatcher {
                 () -> {
             while (true) {
                 while (bandera) {
+                    actualizarBotonesLlamada();
                     for (int i = 0; i < parameterTO.getCantidadElevadores(); i++) {//por cada elevador
                         calendarizado = new Integer[parameterTO.getCantidadPisos()];
                         for(int j=0;j<controlesElevador.get(i).getDestinos().size();j++){
@@ -122,16 +142,33 @@ public class Dispatcher {
                         if (rand.nextInt(100) < parameterTO.getProbabilidadesDetener().get(i)) {//Posibilidad de detenerse
                             System.out.println("Elevador: "+(i+1)+" detenerse");
                             controlesMotorInterrupcion(i, 4);
+
+                            ControlElevador ce = controlesElevador.get(i);
+                            Cabina ca = ce.getCabina();
+                            BotonDetenerse ie = ca.getBotonDetenerse();
+                            ie.setOn(true);
+                            ca.setBotonDetenerse(ie);
+                            ce.setCabina(ca);
+                            controlesElevador.set(i,ce);
                         }
 
                         if (rand.nextInt(100) < parameterTO.getProbabilidadesEmergencia().get(i)) {//Posibilidad de emergencia
                             System.out.println("Elevador: "+(i+1)+" emergencia");
                             controlesMotorInterrupcion(i, 4);
+
+                            ControlElevador ce = controlesElevador.get(i);
+                            Cabina ca = ce.getCabina();
+                            InterruptorEmergencia ie = ca.getInterruptorEmergencia();
+                            ie.setOn(true);
+                            ca.setInterruptorEmergencia(ie);
+                            ce.setCabina(ca);
+                            controlesElevador.set(i,ce);
                         }
                         for (int e = 0; e < parameterTO.getCantidadPisos(); e++) {//Posibilidad de ir a cada piso
                             if (rand.nextInt(100) < parameterTO.getProbabilidadesDestino().get(e)) {
                                 if(e+1!=controlesElevador.get(i).getCabina().getPisoActual()){
-                                    System.out.println("Elevador: "+(i+1)+" ir al piso: "+(e+1));
+                                    System.out.println("Elevador: "+(i+1)+" en el piso: "+controlesElevador.get(i).getCabina().getPisoActual()+" ir al piso: "+(e+1));
+
                                     botonDestinoInterrupcion(e, i);
                                 }
                             }
@@ -161,7 +198,7 @@ public class Dispatcher {
                     }
                     //TODO SLEEP DE UT
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

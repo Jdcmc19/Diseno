@@ -4,6 +4,7 @@ import Boton.BotonDestino;
 import ElevadorBuilder.Elevador.ControlElevador;
 import Scheduler.Dispatcher;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class IntBotonDestino implements Solicitud{
@@ -32,7 +33,7 @@ public class IntBotonDestino implements Solicitud{
         ArrayList<BotonDestino> aboton = controlElevador.getBotonesDestino();
         BotonDestino bd = aboton.get(piso);
         ArrayList<Byte> dest  =controlElevador.getDestinos();
-        if(controlElevador.getCabina().getPisoActual()!=piso){
+        if((byte)controlElevador.getCabina().getPisoActual()-1!=piso){
             dest.add(piso);
             bd.encender();
         }

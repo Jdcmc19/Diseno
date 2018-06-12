@@ -34,14 +34,14 @@
                         <Label layoutX="86.0" layoutY="142.0" text="Cantidad de pisos" textFill="WHITE" />
                         <Label layoutX="409.0" layoutY="58.0" text="Peso" textFill="WHITE" />
                         <Label layoutX="86.0" layoutY="59.0" text="Cantidad de personas" textFill="WHITE" />
-                        <TextField fx:id="mEmergencia" layoutX="408.0" layoutY="366.0" promptText="Por elevador" style="-fx-background-color: gray;" text="7,8,9" />
-                        <TextField fx:id="mDetenerse" layoutX="408.0" layoutY="323.0" promptText="Por elevador" style="-fx-background-color: gray;" text="4,5,6" />
-                        <TextField fx:id="mDestino" layoutX="86.0" layoutY="366.0" promptText="Por piso" style="-fx-background-color: gray;" text="3,4" />
-                        <TextField fx:id="mLlamadaElevador" layoutX="86.0" layoutY="323.0" promptText="Por piso" style="-fx-background-color: gray;" text="1,2" />
+                        <TextField fx:id="mEmergencia" layoutX="408.0" layoutY="366.0" promptText="Por elevador" style="-fx-background-color: gray;" text="15,15,15" />
+                        <TextField fx:id="mDetenerse" layoutX="408.0" layoutY="323.0" promptText="Por elevador" style="-fx-background-color: gray;" text="15,15,15" />
+                        <TextField fx:id="mDestino" layoutX="86.0" layoutY="366.0" promptText="Por piso" style="-fx-background-color: gray;" text="25,25,25" />
+                        <TextField fx:id="mLlamadaElevador" layoutX="86.0" layoutY="323.0" promptText="Por piso" style="-fx-background-color: gray;" text="25,25,25" />
                         <TextField fx:id="mPuertaAbierta" layoutX="408.0" layoutY="241.0" promptText="Por elevador" style="-fx-background-color: gray;" text="3,4,1" />
                         <TextField fx:id="mEntrePisos" layoutX="86.0" layoutY="241.0" promptText="Por elevador" style="-fx-background-color: gray;" text="2,3,1" />
                         <TextField fx:id="mCantElevadores" layoutX="408.0" layoutY="159.0" style="-fx-background-color: gray;" text="3" />
-                        <TextField fx:id="mCantPisos" layoutX="86.0" layoutY="159.0" style="-fx-background-color: gray;" text="2" />
+                        <TextField fx:id="mCantPisos" layoutX="86.0" layoutY="159.0" style="-fx-background-color: gray;" text="3" />
                         <TextField fx:id="mPeso" layoutX="408.0" layoutY="75.0" style="-fx-background-color: gray;" text="455" />
                         <TextField fx:id="mCantPersonas" layoutX="86.0" layoutY="76.0" style="-fx-background-color: gray;" text="33" />
                         <Label layoutX="216.0" layoutY="272.0" text="Probabilidades" textFill="WHITE">

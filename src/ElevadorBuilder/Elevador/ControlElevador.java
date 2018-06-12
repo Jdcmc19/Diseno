@@ -1,8 +1,10 @@
 package ElevadorBuilder.Elevador;
 
 import Boton.BotonDestino;
+import ElevadorBuilder.Elevador.Component.Cabin.BotonDetenerse;
 import ElevadorBuilder.Elevador.Component.Cabin.Cabina;
 import ElevadorBuilder.Elevador.Component.Cabin.DireccionElevador;
+import ElevadorBuilder.Elevador.Component.Cabin.InterruptorEmergencia;
 import ElevadorBuilder.Elevador.Component.Cabin.Move.MoveTypes.Bajar;
 import ElevadorBuilder.Elevador.Component.Cabin.Move.MoveTypes.Detenerse;
 import ElevadorBuilder.Elevador.Component.Cabin.Move.MoveTypes.Subir;
@@ -11,13 +13,13 @@ import ElevadorBuilder.Elevador.Component.IndicadorPiso;
 import ElevadorBuilder.Elevador.Component.SensorPeso;
 import ElevadorBuilder.Elevador.Component.SensorPiso;
 import Interrupciones.Solicitud;
+import Scheduler.Dispatcher;
 
 import java.util.ArrayList;
 
 public class ControlElevador {
     private ArrayList<Solicitud> solicitudes;
     private ArrayList<Byte> destinos;
-
     private SensorPeso sensorPeso;
     private ArrayList<IndicadorPiso> indicadorPiso;
     private ArrayList<SensorPiso> sensorPiso;
@@ -53,11 +55,11 @@ public class ControlElevador {
                 while(true){
                     if(destinos.size()>0){
                         Mover a;
-                        if(cabina.getPisoActual()>destinos.get(0)){
+                        if(cabina.getPisoActual()-1>(byte)destinos.get(0)){
                             System.out.println("Un elevador baja del piso: "+cabina.getPisoActual());
                             a = new Bajar();
                         }
-                        else if(cabina.getPisoActual()<destinos.get(0)){
+                        else if(cabina.getPisoActual()-1<(byte)destinos.get(0)){
                             System.out.println("Un elevador sube del piso: "+cabina.getPisoActual());
                             a = new Subir();
                         }
@@ -69,7 +71,7 @@ public class ControlElevador {
                         moverse(a);
                     }
                     try {
-                        Thread.sleep(250);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -92,7 +94,7 @@ public class ControlElevador {
                         solicitudes.remove(0);
                     }
                     try {
-                        Thread.sleep(250);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -111,7 +113,7 @@ public class ControlElevador {
         cabina.setDireccionActual(m.getDireccion());
         if(cabina.getDireccionActual()==DireccionElevador.NINGUNA){
             if(destinos.size()>1) {
-                if (cabina.getPisoActual() > destinos.get(1)) {
+                if (cabina.getPisoActual()-1 > destinos.get(1)) {
                     cabina.setDireccionPrevista(DireccionElevador.ABAJO);
                 }
                 else
@@ -121,8 +123,31 @@ public class ControlElevador {
                 cabina.setDireccionPrevista(DireccionElevador.NINGUNA);
         }
         cabina.moverse();
-        if(destinos.contains(cabina.getPisoActual()))
-            destinos.remove(cabina.getPisoActual());
+        ArrayList<Byte> as = new ArrayList<>();
+        for(int i=0;i<botonDestino.size();i++){
+            BotonDestino bb = botonDestino.get(i);
+            bb.apagar();
+            botonDestino.set(i,bb);
+        }
+        for(int i=0;i<destinos.size();i++){
+            if(destinos.get(i)!=(byte)cabina.getPisoActual()-1){
+                as.add(destinos.get(i));
+                BotonDestino ap = botonDestino.get(destinos.get(i));
+                ap.encender();
+                botonDestino.set(destinos.get(i),ap);
+            }
+        }
+        destinos = as;
+        if(cabina.getInterruptorEmergencia().getOn()){
+            InterruptorEmergencia ie = cabina.getInterruptorEmergencia();
+            ie.setOn(false);
+            cabina.setInterruptorEmergencia(ie);
+        }
+        if(cabina.getBotonDetenerse().getOn()){
+            BotonDetenerse ie = cabina.getBotonDetenerse();
+            ie.setOn(false);
+            cabina.setBotonDetenerse(ie);
+        }
     }
     /******************************************************************************************************************/
     public ArrayList<Solicitud> getSolicitudes() {

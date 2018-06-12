@@ -41,11 +41,14 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        //TODO HILO PARA DISPATCHER.SOLICITUDES tal vez
-        //TODO HILO PARA CADA CONTROL ELEVADOR(SOLICITUDES) que se encargue de revisar por cada piso que va, si esta en los destinos
-        //TODO HILO PARA INTERFAZ PISO && RELOJ UT ya
-        //TODO HILO PARA INTERFAZ ELEVADOR && RELOJ UT ya
-        //TODO HILO PARA INICIAR SIMULACION ya
+        //TODO RELOJ UT
+        //TODO MOSTRAR RELOJ UT
+        //TODO VER EL LOG EN LA ESPECIFICACION(PERSONAS QUE ENTRAN Y SALEN)
+        //TODO VER QUE PASA CON EL DIRECCION PREVISTA QUE NUNCA CAMBIA DE NINGUNA
+        //TODO VER QUE SIRVA LA VISTA DE CONSOLA
+        //TODO DESVIAR LOS PRINTS AL LOG
+        //TODO HACER QUE VAYA PASO A PASO LA SIMULACION
+
         launch(args);/*
         /*String RespuestaConsola;
         ViewCON Vista_consola = new ViewCON();

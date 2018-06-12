@@ -12,6 +12,7 @@ import ParameterDTO.ParameterBO;
 import ParameterDTO.ParameterTO;
 import Scheduler.Dispatcher;
 import Scheduler.ModeStrategy.SheduleV1;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -220,6 +221,7 @@ public class ControllerGUI implements Initializable {
         }
     }
     public void actualizarPiso(int piso){//exterioor
+
         limpiarPiso();
         ePiso.setText(piso+"");
         if(piso==1){
@@ -260,14 +262,20 @@ public class ControllerGUI implements Initializable {
         }
         t = new Thread(() -> {
             while (true) {
-                actualizarElevador(elevador);
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        actualizarElevador(elevador);
+                    }
+                });
+
                 try {
-                    Thread.sleep(0);
+                    Thread.sleep(250);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
+        t.start();
     }
 
     public void hiloPiso(int piso){
@@ -276,14 +284,20 @@ public class ControllerGUI implements Initializable {
         }
         t = new Thread(() -> {
             while (true) {
-                actualizarElevador(piso);
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        actualizarPiso(piso);
+                    }
+                });
+
                 try {
-                    Thread.sleep(0);
+                    Thread.sleep(250);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
+        t.start();
     }
     public void actualizarElevador(int elevador){//interior
         limpiarElevador();
@@ -339,6 +353,7 @@ public class ControllerGUI implements Initializable {
     /**********************************INTERRUPCIONES***********************************/
     public void botonDestinoInterrupcion(int piso, int elevador){
         dispatcher.botonDestinoInterrupcion(piso,elevador);
+
     }
     public void sensorPisoInterrupcion(int piso, int elevador){
         dispatcher.sensorPisoInterrupcion(piso, elevador);
