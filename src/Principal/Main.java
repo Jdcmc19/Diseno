@@ -49,8 +49,11 @@ public class Main extends Application {
         //TODO DESVIAR LOS PRINTS AL LOG
         //TODO HACER QUE VAYA PASO A PASO LA SIMULACION
 
-        launch(args);/*
-        /*String RespuestaConsola;
+        //launch(args);
+
+
+
+        String RespuestaConsola;
         ViewCON Vista_consola = new ViewCON();
 
 
@@ -72,7 +75,7 @@ public class Main extends Application {
             }
         }catch (Exception e){
             e.printStackTrace();
-        }*/
+        }
 
 
 

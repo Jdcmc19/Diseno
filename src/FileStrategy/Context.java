@@ -8,6 +8,9 @@ import java.io.IOException;
 public class Context {
     private File strategy;
 
+   /* public Context() {
+    }*/
+
     public Context(File strategy){
         this.strategy = strategy;
     }
@@ -30,4 +33,6 @@ public class Context {
     public ParameterBO leer(String nombre) throws IOException {
         return strategy.leer(nombre);
     }
+
+
 }

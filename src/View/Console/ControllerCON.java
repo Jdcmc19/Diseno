@@ -32,7 +32,25 @@ public class ControllerCON {
             context.setStrategy(new Xml());
         }
         temporal =context.leer(path);
+        System.out.println(temporal.getParametros().getCantidadPisos());
+        System.out.println(temporal.getParametros().getCantidadElevadores());
+        System.out.println(temporal.getParametros().getMaxCantidadPersonas());
+        System.out.println(temporal.getParametros().getMaxPeso());
+
+        for (int i=0 ;i<temporal.getParametros().getProbabilidadesLlamada().size();i++) {
+            System.out.println(temporal.getParametros().getProbabilidadesLlamada().get(i));
+            System.out.println(temporal.getParametros().getProbabilidadesDestino().get(i));
+            System.out.println(temporal.getParametros().getProbabilidadesDetener().get(i));
+            System.out.println(temporal.getParametros().getProbabilidadesEmergencia().get(i));
+            System.out.println(temporal.getParametros().getTiempoTransicion().get(i));
+            System.out.println(temporal.getParametros().getTiempoPuertaAbierta().get(i));
+
+        }
+
         parametros=temporal.getParametros();
+        System.out.println("print final");
+        System.out.println(parametros.getMaxCantidadPersonas());
+        System.out.println("print despues final");
 
 
 
@@ -43,6 +61,8 @@ public class ControllerCON {
             dispatcher = new Dispatcher(new SheduleV1(), parametros);
 
             dispatcher.createElevadores(new BuilderV1(parametros));
+
+            dispatcher.iniciarSimulacion();
         }
 
 
@@ -71,6 +91,8 @@ public class ControllerCON {
 
     public boolean revisar(){
         if (this.parametros.getCantidadPisos()<2) return false;
+        System.out.println("llego aqui");
+
         if (this.parametros.getMaxCantidadPersonas()==0) return false;
         if(this.parametros.getCantidadElevadores()==0)return false;
         if(this.parametros.getMaxPeso()==0) return false;
