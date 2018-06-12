@@ -222,11 +222,15 @@ public class ControllerGUI implements Initializable {
     public void actualizarPiso(int piso){//exterioor
         limpiarPiso();
         ePiso.setText(piso+"");
-        if(piso==1&&dispatcher.getBotonesLlamadas().get(0).get(0).prendido()){
-            eSubir.setStyle("-fx-opacity: 1.0;-fx-background-color: green;");
+        if(piso==1){
+            if(dispatcher.getBotonesLlamadas().get(0).get(0).prendido()){
+                eSubir.setStyle("-fx-opacity: 1.0;-fx-background-color: green;");
+            }
         }
-        else if(piso==parameterTO.getCantidadPisos()&&dispatcher.getBotonesLlamadas().get(piso-1).get(0).prendido()){
-            eBajar.setStyle("-fx-opacity: 1.0;-fx-background-color: green;");
+        else if(piso==parameterTO.getCantidadPisos()){
+            if(dispatcher.getBotonesLlamadas().get(piso-1).get(0).prendido()){
+                eBajar.setStyle("-fx-opacity: 1.0;-fx-background-color: green;");
+            }
         }
         else if(dispatcher.getBotonesLlamadas().get(piso-1).get(0).prendido()){
             eSubir.setStyle("-fx-opacity: 1.0;-fx-background-color: green;");

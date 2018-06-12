@@ -3,6 +3,9 @@ package ElevadorBuilder.Elevador;
 import Boton.BotonDestino;
 import ElevadorBuilder.Elevador.Component.Cabin.Cabina;
 import ElevadorBuilder.Elevador.Component.Cabin.DireccionElevador;
+import ElevadorBuilder.Elevador.Component.Cabin.Move.MoveTypes.Bajar;
+import ElevadorBuilder.Elevador.Component.Cabin.Move.MoveTypes.Detenerse;
+import ElevadorBuilder.Elevador.Component.Cabin.Move.MoveTypes.Subir;
 import ElevadorBuilder.Elevador.Component.Cabin.Move.Mover;
 import ElevadorBuilder.Elevador.Component.IndicadorPiso;
 import ElevadorBuilder.Elevador.Component.SensorPeso;
@@ -31,25 +34,75 @@ public class ControlElevador {
         destinos = new ArrayList<>();
     }
 
+    public ControlElevador(ArrayList<SensorPiso> sensorPiso, Cabina cabina, ArrayList<BotonDestino> botonDestino,ArrayList<Byte> destinos) {
+        this.sensorPiso = sensorPiso;
+        this.cabina = cabina;
+        this.botonDestino = botonDestino;
+        this.destinos=destinos;
+    }
+
     @Override
     public String toString() {
         return "Solicitudes: "+solicitudes.size()+"\nDestinos: "+destinos.size()+"\nSensorPeso: "+sensorPeso.toString()+"\nIndicadorPiso: "+indicadorPiso.size()+
                 "\nSensorPiso: "+sensorPiso.size()+"\nCabina: "+cabina.toString()+"\nBotonDestino: "+botonDestino.size();
     }
     /******************************************************************************************************************/
-    public void cumplirSolicitudes(){
-        ControlElevador ce;
-        for(int i=0;i<solicitudes.size();i++){
-            ce = solicitudes.get(i).cumplirSolicitud(this);
-            this.botonDestino = ce.getBotonesDestino();
-            this.cabina = ce.getCabina();
-            this.sensorPiso = ce.getSensorPiso();
-        }
+    public void crearHiloMoverse(){//hilo
+        Thread thread = new Thread(){
+            public void run(){
+                while(true){
+                    if(destinos.size()>0){
+                        Mover a;
+                        if(cabina.getPisoActual()>destinos.get(0)){
+                            System.out.println("Un elevador baja del piso: "+cabina.getPisoActual());
+                            a = new Bajar();
+                        }
+                        else if(cabina.getPisoActual()<destinos.get(0)){
+                            System.out.println("Un elevador sube del piso: "+cabina.getPisoActual());
+                            a = new Subir();
+                        }
+                        else{
+                            System.out.println("Un elevador se mantiene en el piso: "+cabina.getPisoActual());
+                            a = new Detenerse();
+                        }
+                        moverse(a);
+                    }
+                    try {
+                        Thread.sleep(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        thread.start();
     }
-    public void crearHilo(){//hilo
-        while(true)
-            if(solicitudes.size()>0)
-                cumplirSolicitudes();
+    public void crearHiloSolicitudes(){
+        Thread thread = new Thread(){
+            public void run(){
+                ControlElevador ce;
+                while(true){
+                    if(solicitudes.size()>0){
+                        System.out.println("Resolvio solicitud del elevador");
+                        ce = solicitudes.get(0).cumplirSolicitud(new ControlElevador(sensorPiso,cabina,botonDestino,destinos));
+                        botonDestino = ce.getBotonesDestino();
+                        cabina = ce.getCabina();
+                        sensorPiso = ce.getSensorPiso();
+                        solicitudes.remove(0);
+                    }
+                    try {
+                        Thread.sleep(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        thread.start();
+    }
+    public void crearHilo(){
+        crearHiloMoverse();
+        crearHiloSolicitudes();
     }
     public void moverse(Mover m){
 
@@ -67,9 +120,9 @@ public class ControlElevador {
                 cabina.setDireccionPrevista(DireccionElevador.NINGUNA);
         }
         cabina.moverse();
-        destinos.remove(cabina.getPisoActual());
+        if(destinos.contains(cabina.getPisoActual()))
+            destinos.remove(cabina.getPisoActual());
     }
-
     /******************************************************************************************************************/
     public ArrayList<Solicitud> getSolicitudes() {
         return solicitudes;

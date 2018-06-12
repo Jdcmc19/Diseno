@@ -7,13 +7,14 @@ import ElevadorBuilder.Director;
 import ElevadorBuilder.Elevador.ControlElevador;
 import Interrupciones.*;
 import ParameterDTO.ParameterTO;
+import Scheduler.ModeStrategy.SheduleV1;
 import Scheduler.ModeStrategy.Strategy;
 
 import java.util.ArrayList;
 import java.util.Random;
 //import java.util.spi.AbstractResourceBundleProvider;
 
-public class Dispatcher{
+public class Dispatcher {
     private ParameterTO parameterTO;
     private Strategy calendarizador;
     private ArrayList<Solicitud> solicitudes;
@@ -21,9 +22,11 @@ public class Dispatcher{
     private ArrayList<ControlElevador> controlesElevador;
     private Integer[] calendarizado;
 
-    public Dispatcher(ArrayList<ArrayList<BotonLlamada>> botonesLlamadas,ArrayList<ControlElevador> controlesElevador){
+    public Dispatcher(ArrayList<ArrayList<BotonLlamada>> botonesLlamadas,ArrayList<ControlElevador> controlesElevador, Strategy calendarizador,Integer[] calendarizado){
         this.botonesLlamadas = botonesLlamadas;
         this.controlesElevador = controlesElevador;
+        this.calendarizador = calendarizador;
+        this.calendarizado = calendarizado;
     }
 
     public Dispatcher(Strategy calendarizador, ArrayList<ArrayList<BotonLlamada>> botonesLlamadas) {
@@ -64,7 +67,7 @@ public class Dispatcher{
         Director director = new Director(builder);
         ControlElevador controlElevador;
         controlesElevador = new ArrayList<>();
-        for (int i=0;i<parameterTO.getCantidadPisos();i++){
+        for (int i=0;i<parameterTO.getCantidadElevadores();i++){
             controlElevador = director.contruir();
             controlesElevador.add(controlElevador);
         }
@@ -77,16 +80,22 @@ public class Dispatcher{
                 Dispatcher d;
                 while(true) {
                     if(solicitudes.size()>0){
-                        d=solicitudes.get(0).delegarSolicitud(new Dispatcher(botonesLlamadas, controlesElevador));
+                        System.out.println("Delega solicitud");
+                        d=solicitudes.get(0).delegarSolicitud(new Dispatcher(botonesLlamadas, controlesElevador,calendarizador,calendarizado));
                         botonesLlamadas = d.getBotonesLlamadas();
                         controlesElevador = d.getControlesElevador();
+                        solicitudes.remove(0);
+                    }
+                    try {
+                        Thread.sleep(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }
         };
         t.start();
     }
-
     public void crearHilosElevadores(){
         for(int i=0;i<controlesElevador.size();i++){
             controlesElevador.get(i).crearHilo();//crear funcion
@@ -105,17 +114,26 @@ public class Dispatcher{
             while (true) {
                 while (bandera) {
                     for (int i = 0; i < parameterTO.getCantidadElevadores(); i++) {//por cada elevador
+                        calendarizado = new Integer[parameterTO.getCantidadPisos()];
+                        for(int j=0;j<controlesElevador.get(i).getDestinos().size();j++){
+                            calendarizado[controlesElevador.get(i).getDestinos().get(j)] = i;
+                        }
                         Random rand = new Random();
                         if (rand.nextInt(100) < parameterTO.getProbabilidadesDetener().get(i)) {//Posibilidad de detenerse
+                            System.out.println("Elevador: "+(i+1)+" detenerse");
                             controlesMotorInterrupcion(i, 4);
                         }
 
                         if (rand.nextInt(100) < parameterTO.getProbabilidadesEmergencia().get(i)) {//Posibilidad de emergencia
+                            System.out.println("Elevador: "+(i+1)+" emergencia");
                             controlesMotorInterrupcion(i, 4);
                         }
                         for (int e = 0; e < parameterTO.getCantidadPisos(); e++) {//Posibilidad de ir a cada piso
                             if (rand.nextInt(100) < parameterTO.getProbabilidadesDestino().get(e)) {
-                                botonDestinoInterrupcion(e, i);
+                                if(e+1!=controlesElevador.get(i).getCabina().getPisoActual()){
+                                    System.out.println("Elevador: "+(i+1)+" ir al piso: "+(e+1));
+                                    botonDestinoInterrupcion(e, i);
+                                }
                             }
                         }
                     }
@@ -124,21 +142,33 @@ public class Dispatcher{
                         if (r.nextInt(100) < parameterTO.getProbabilidadesLlamada().get(i)) {
                             if (i == 0) {
                                 botonLlamadaInterrupcion(i, DireccionLlamada.SUBE);
+                                System.out.println("Llama al boton sube el piso "+(i+1));
                             } else if (i == parameterTO.getCantidadPisos() - 1) {
                                 botonLlamadaInterrupcion(i, DireccionLlamada.BAJA);
+                                System.out.println("Llama al boton baja el piso "+(i+1));
                             } else {
-                                if (r.nextBoolean())
+                                if (r.nextBoolean()){
                                     botonLlamadaInterrupcion(i, DireccionLlamada.BAJA);
-                                else
+                                    System.out.println("Llama al boton baja el piso "+(i+1));
+
+                                }
+                                else{
                                     botonLlamadaInterrupcion(i, DireccionLlamada.SUBE);
+                                    System.out.println("Llama al boton sube el piso "+(i+1));
+                                }
                             }
                         }
                     }
                     //TODO SLEEP DE UT
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
-        );
+        });
+        hilo.start();
 
     }
     /**********************************INTERRUPCIONES***********************************/

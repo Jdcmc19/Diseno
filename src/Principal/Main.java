@@ -46,8 +46,8 @@ public class Main extends Application {
         //TODO HILO PARA INTERFAZ PISO && RELOJ UT ya
         //TODO HILO PARA INTERFAZ ELEVADOR && RELOJ UT ya
         //TODO HILO PARA INICIAR SIMULACION ya
-        launch(args);
-        String RespuestaConsola;
+        launch(args);/*
+        /*String RespuestaConsola;
         ViewCON Vista_consola = new ViewCON();
 
 
@@ -69,7 +69,7 @@ public class Main extends Application {
             }
         }catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
 
 
 
