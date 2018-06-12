@@ -21,8 +21,10 @@ public class IntBotonLlamada implements Solicitud {
         ArrayList<ArrayList<BotonLlamada>> array = d.getBotonesLlamadas();
         ArrayList<BotonLlamada> aboton = array.get(piso);
         BotonLlamada ba;
+
         for(int i=0;i<aboton.size();i++){
             if(aboton.get(i).getDireccion()==direccionLlamada){
+
                 ba = aboton.get(i);
                 ba.encender();
                 aboton.set(i,ba);
@@ -30,6 +32,8 @@ public class IntBotonLlamada implements Solicitud {
         }
         array.set(piso,aboton);
         d.setBotonesLlamadas(array);
+        int p = d.calendarizar(direccionLlamada,piso);
+        d.botonDestinoInterrupcion(piso,p);
         return d;
     }
     @Override

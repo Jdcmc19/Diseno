@@ -4,6 +4,11 @@ import Boton.DireccionLlamada;
 import ElevadorBuilder.BuilderV1;
 import ElevadorBuilder.Elevador.Component.Cabin.DireccionElevador;
 import ElevadorBuilder.Elevador.ControlElevador;
+import FileStrategy.Context;
+import FileStrategy.Types.Json;
+import FileStrategy.Types.Text;
+import FileStrategy.Types.Xml;
+import ParameterDTO.ParameterBO;
 import ParameterDTO.ParameterTO;
 import Scheduler.Dispatcher;
 import Scheduler.ModeStrategy.SheduleV1;
@@ -13,7 +18,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -28,6 +36,8 @@ public class ControllerGUI implements Initializable {
     TextField mCantPersonas,mPeso,mCantPisos,mCantElevadores,mEntrePisos,mPuertaAbierta,mLlamadaElevador,mDetenerse,mDestino,mEmergencia;
     @FXML
     Button mIniciarSimulacion,mGuardarSimulacion,mCargarSimulacion;
+    @FXML
+    RadioButton mXML,mJSON,mTXT;
     /*VISTA EXTERIOR*/
     @FXML
     Button eSubir,eBajar,eOnSensorPiso,eOffSensorPiso,eBtoPiso;
@@ -45,8 +55,12 @@ public class ControllerGUI implements Initializable {
     @FXML
     AnchorPane iAnchorPane;
     public void initialize(URL fxmlLocations, ResourceBundle resources){
-        parameterTO.setCantidadPisos(128);
-        parameterTO.setCantidadElevadores(23);
+
+
+        ToggleGroup tg = new ToggleGroup();
+        mXML.setToggleGroup(tg);
+        mTXT.setToggleGroup(tg);
+        mJSON.setToggleGroup(tg);
 
         eBtoPiso.setOnAction(event -> {
             if(eCbPisos.getItems().size()==0){
@@ -88,16 +102,82 @@ public class ControllerGUI implements Initializable {
             }
         });
         mCargarSimulacion.setOnAction(event -> {
-        });
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(null);
+            String path=file.getAbsolutePath();
 
+            Context context = new Context();
+
+            if(mJSON.isSelected()){
+                context.setStrategy(new Json());
+            }
+            else if(mXML.isSelected()){
+                context.setStrategy(new Xml());
+            }
+            else if(mTXT.isSelected()){
+                context.setStrategy(new Text());
+            }
+            try{
+                ParameterBO parameterBO = context.leer(path);
+                parameterTO = parameterBO.getParametros();
+                setBotonesDestino();
+                desplegarParametros();
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        });
+        mGuardarSimulacion.setOnAction(event -> {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            File file = directoryChooser.showDialog(null);
+            String path=file.getAbsolutePath()+'\\';
+            Context context = new Context();
+
+            if(mJSON.isSelected()){
+                context.setStrategy(new Json());
+            }
+            else if(mXML.isSelected()){
+                context.setStrategy(new Xml());
+            }
+            else if(mTXT.isSelected()){
+                context.setStrategy(new Text());
+            }
+            try{
+                if(setValores()){
+                    ParameterBO parameterBO = new ParameterBO();
+                    parameterBO.setParametros(parameterTO);
+
+                    context.escribir(path,parameterBO);
+                }else
+                    System.out.println("No setvalores guardar");
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        });
         mIniciarSimulacion.setOnAction(event -> {
             if(setValores()){
-                dispatcher = new Dispatcher(new SheduleV1());
+                dispatcher = new Dispatcher(new SheduleV1(),parameterTO);
                 dispatcher.createElevadores(new BuilderV1(parameterTO));
-                dispatcher.setParameterTO(parameterTO);
+                setBotonesDestino();
+                dispatcher.iniciarSimulacion();
             }else
                 System.out.println("NO setValores()");
         });
+    }
+    public void desplegarParametros(){
+        mCantPersonas.setText(parameterTO.getMaxCantidadPersonas()+"");
+        mPeso.setText(parameterTO.getMaxPeso()+"");
+        mCantPisos.setText(parameterTO.getCantidadPisos()+"");
+        mCantElevadores.setText(parameterTO.getCantidadElevadores()+"");
+        mEntrePisos.setText(stringFromArrayList(parameterTO.getTiempoTransicion()));
+        mPuertaAbierta.setText(stringFromArrayList(parameterTO.getTiempoPuertaAbierta()));
+        mLlamadaElevador.setText(stringFromArrayList(parameterTO.getProbabilidadesLlamada()));
+        mDetenerse.setText(stringFromArrayList(parameterTO.getProbabilidadesDetener()));
+        mDestino.setText(stringFromArrayList(parameterTO.getProbabilidadesDestino()));
+        mEmergencia.setText(stringFromArrayList(parameterTO.getProbabilidadesEmergencia()));
+    }
+    public void setBotonesDestino(){
         botonesDestino = new ArrayList<>();
         Button bto1;
         int x = 438,y = 108;
@@ -168,6 +248,11 @@ public class ControllerGUI implements Initializable {
         eBajar.setStyle("-fx-opacity: 1.0;");
         eOffSensorPiso.setStyle("-fx-opacity: 1.0;");
         eOnSensorPiso.setStyle("-fx-opacity: 1.0;");
+    }
+    public void hiloElevador(){
+        while(true){
+            actualizarElevador(2);
+        }
     }
     public void actualizarElevador(int elevador){//interior
         limpiarElevador();
@@ -270,5 +355,15 @@ public class ControllerGUI implements Initializable {
         }
         arrayList.add(tmp);
         return arrayList;
+    }
+    public String stringFromArrayList(ArrayList<Integer> arrayList){
+        String a = "";
+        for(int i=0;i<arrayList.size();i++){
+            a+=arrayList.get(i);
+            if(i!=arrayList.size()-1){
+                a+=",";
+            }
+        }
+        return a;
     }
 }

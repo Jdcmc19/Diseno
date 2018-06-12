@@ -9,10 +9,10 @@ public class IndicadorPiso {
         this.isOn = false;
     }
 
-    private void encender(){
+    public void encender(){
         isOn=true;
     }
-    private void apagar(){
+    public void apagar(){
         isOn=false;
     }
 

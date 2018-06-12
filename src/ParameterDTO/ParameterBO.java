@@ -23,5 +23,17 @@ public class ParameterBO {
         parametros.setTiempoTransicion(tTrans);
         parametros.setTiempoPuertaAbierta(tPuerta);
     }
+    public void setParametros(ParameterTO p){
+        parametros.setCantidadPisos(p.getCantidadPisos());
+        parametros.setCantidadElevadores(p.getCantidadElevadores());
+        parametros.setMaxCantidadPersonas(p.getMaxCantidadPersonas());
+        parametros.setMaxPeso(p.getMaxPeso());
+        parametros.setProbabilidadesLlamada(p.getProbabilidadesLlamada());
+        parametros.setProbabilidadesDestino(p.getProbabilidadesDestino());
+        parametros.setProbabilidadesDetener(p.getProbabilidadesDetener());
+        parametros.setProbabilidadesEmergencia(p.getProbabilidadesEmergencia());
+        parametros.setTiempoTransicion(p.getTiempoTransicion());
+        parametros.setTiempoPuertaAbierta(p.getTiempoPuertaAbierta());
+    }
 
 }

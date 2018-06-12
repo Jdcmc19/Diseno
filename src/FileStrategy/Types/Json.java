@@ -20,7 +20,7 @@ public class Json implements File {
         ParameterTO parametros = p.getParametros();
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter(nombre+".js", "UTF-8");
+            writer = new PrintWriter(nombre+"parametros.js", "UTF-8");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

@@ -64,6 +64,12 @@ public class Cabina {
 
     public void setDireccionActual(DireccionElevador direccionActual) {
         this.direccionActual = direccionActual;
+        if(this.direccionActual!=DireccionElevador.NINGUNA){
+            interruptorEmergencia.setOn(false);
+            botonDetenerse.setOn(false);
+            this.direccionPrevista = DireccionElevador.NINGUNA;
+        }
+
     }
 
     public int getPisoActual() {

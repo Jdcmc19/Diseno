@@ -6,12 +6,15 @@ import FileStrategy.Types.Text;
 import FileStrategy.Types.Xml;
 import ParameterDTO.*;
 import FileStrategy.Types.Json;
+import View.Console.ViewCON;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
@@ -38,7 +41,37 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        //TODO HILO PARA DISPATCHER.SOLICITUDES
+        //TODO HILO PARA CADA CONTROL ELEVADOR(SOLICITUDES) que se encargue de revisar por cada piso que va, si esta en los destinos
+        //TODO HILO PARA INTERFAZ PISO && RELOJ UT
+        //TODO HILO PARA INTERFAZ ELEVADOR && RELOJ UT
+        //TODO HILO PARA INICIAR SIMULACION
         launch(args);
+        String RespuestaConsola;
+        ViewCON Vista_consola = new ViewCON();
+
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try{
+            while(true) {
+                System.out.print("Desea empezar con Consola o Interfaz (C/I): ");
+                RespuestaConsola = br.readLine();
+                if(RespuestaConsola.equals("I")){
+                    launch(args);
+                    break;
+                }
+
+                else{
+                    Vista_consola.menu();
+                    break;
+
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
         /*
         ParameterTO.setCantidadPisos(6);

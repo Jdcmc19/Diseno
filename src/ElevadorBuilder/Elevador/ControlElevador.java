@@ -2,6 +2,8 @@ package ElevadorBuilder.Elevador;
 
 import Boton.BotonDestino;
 import ElevadorBuilder.Elevador.Component.Cabin.Cabina;
+import ElevadorBuilder.Elevador.Component.Cabin.DireccionElevador;
+import ElevadorBuilder.Elevador.Component.Cabin.Move.Mover;
 import ElevadorBuilder.Elevador.Component.IndicadorPiso;
 import ElevadorBuilder.Elevador.Component.SensorPeso;
 import ElevadorBuilder.Elevador.Component.SensorPiso;
@@ -44,6 +46,29 @@ public class ControlElevador {
             this.sensorPiso = ce.getSensorPiso();
         }
     }
+    public void crearHilo(){//hilo
+        while(true)
+            if(solicitudes.size()>0)
+                cumplirSolicitudes();
+    }
+    public void moverse(Mover m){
+
+        cabina.setMove(m);
+        cabina.setDireccionActual(m.getDireccion());
+        if(cabina.getDireccionActual()==DireccionElevador.NINGUNA){
+            if(destinos.size()>1) {
+                if (cabina.getPisoActual() > destinos.get(1)) {
+                    cabina.setDireccionPrevista(DireccionElevador.ABAJO);
+                }
+                else
+                    cabina.setDireccionPrevista(DireccionElevador.ARRIBA);
+            }
+            else
+                cabina.setDireccionPrevista(DireccionElevador.NINGUNA);
+        }
+        cabina.moverse();
+        destinos.remove(cabina.getPisoActual());
+    }
 
     /******************************************************************************************************************/
     public ArrayList<Solicitud> getSolicitudes() {
@@ -76,6 +101,18 @@ public class ControlElevador {
 
     public void setIndicadorPiso(ArrayList<IndicadorPiso> indicadorPiso) {
         this.indicadorPiso = indicadorPiso;
+    }
+
+    public void setIndicadorPiso(int cantPisos){
+        indicadorPiso = new ArrayList<>();
+        IndicadorPiso ap;
+        for(int i=0;i<cantPisos;i++){
+            ap = new IndicadorPiso(i+1);
+            indicadorPiso.add(ap);
+        }
+        ap=indicadorPiso.get(cabina.getPisoActual()-1);
+        ap.encender();
+        indicadorPiso.set(cabina.getPisoActual()-1,ap);
     }
 
     public ArrayList<SensorPiso> getSensorPiso() {

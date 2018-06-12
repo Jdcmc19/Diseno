@@ -35,23 +35,17 @@ public class IntControlesMotor implements Solicitud{
     }
     @Override
     public ControlElevador cumplirSolicitud(ControlElevador controlElevador) {
-        Cabina cabina = controlElevador.getCabina();
         Mover mover = null;
         if(control==1){//suba
             mover = new Subir();
-            cabina.setDireccionActual(DireccionElevador.ARRIBA);
         }
         else if(control==2){//baje
             mover = new Bajar();
-            cabina.setDireccionActual(DireccionElevador.ABAJO);
         }
         else if(control==4){//detenerse
             mover = new Detenerse();
-            cabina.setDireccionActual(DireccionElevador.NINGUNA);
         }
-        cabina.setMove(mover);
-        cabina.moverse();
-        controlElevador.setCabina(cabina);
+        controlElevador.moverse(mover);
         return controlElevador;
     }
 }

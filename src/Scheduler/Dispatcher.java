@@ -10,6 +10,7 @@ import ParameterDTO.ParameterTO;
 import Scheduler.ModeStrategy.Strategy;
 
 import java.util.ArrayList;
+import java.util.Random;
 //import java.util.spi.AbstractResourceBundleProvider;
 
 public class Dispatcher {
@@ -26,9 +27,11 @@ public class Dispatcher {
         this.solicitudes = new ArrayList<>();
     }
 
-    public Dispatcher(Strategy calendarizador) {
+    public Dispatcher(Strategy calendarizador, ParameterTO parameterTO) {
+        this.parameterTO = parameterTO;
         this.calendarizador = calendarizador;
         this.solicitudes = new ArrayList<>();
+        botonesLlamadas = new ArrayList<>();
         BotonLlamada b1 = new BotonLlamada(1,DireccionLlamada.SUBE);
         ArrayList<BotonLlamada> tmp = new ArrayList<>();
         tmp.add(b1);
@@ -47,9 +50,10 @@ public class Dispatcher {
         botonesLlamadas.add(tmp);
         calendarizado = new Integer[parameterTO.getCantidadPisos()];
     }
-    public void calendarizar(DireccionLlamada dr,int partida){
+    public int calendarizar(DireccionLlamada dr,int partida){
         int elevador = calendarizador.Calendarizar(dr,partida,this.controlesElevador);
         calendarizado[partida-1] = elevador;
+        return elevador;
     }
     public void createElevadores(Builder builder){
         Director director = new Director(builder);
@@ -69,7 +73,56 @@ public class Dispatcher {
             this.controlesElevador = d.getControlesElevador();
         }
     }
+    public void crearHilosElevadores(){
+        for(int i=0;i<controlesElevador.size();i++){
+            controlesElevador.get(i).crearHilo();//crear funcion
+        }
+    }
 
+    public void crearHiloDispatcher(){
+        delegarSolicitudes();
+    }
+    public void iniciarSimulacion(){//hilo AQUI EL SLEEP DE UT
+        crearHiloDispatcher();
+        crearHilosElevadores();
+        Boolean bandera = true;
+        while(true){
+            while(bandera){
+                for(int i=0;i<parameterTO.getCantidadElevadores();i++){//por cada elevador
+                    Random rand = new Random();
+                    if(rand.nextInt(100)<parameterTO.getProbabilidadesDetener().get(i)) {//Posibilidad de detenerse
+                        controlesMotorInterrupcion(i,4);
+                    }
+
+                    if(rand.nextInt(100)<parameterTO.getProbabilidadesEmergencia().get(i)) {//Posibilidad de emergencia
+                        controlesMotorInterrupcion(i,4);
+                    }
+                    for(int e=0;e<parameterTO.getCantidadPisos();e++){//Posibilidad de ir a cada piso
+                        if(rand.nextInt(100)<parameterTO.getProbabilidadesDestino().get(e)){
+                            botonDestinoInterrupcion(e,i);
+                        }
+                    }
+                }
+                for(int i=0;i<parameterTO.getCantidadPisos();i++){
+                    Random r = new Random();
+                    if(r.nextInt(100)<parameterTO.getProbabilidadesLlamada().get(i)){
+                        if(i==0){
+                            botonLlamadaInterrupcion(i,DireccionLlamada.SUBE);
+                        }else if(i==parameterTO.getCantidadPisos()-1){
+                            botonLlamadaInterrupcion(i,DireccionLlamada.BAJA);
+                        }else{
+                            if(r.nextBoolean())
+                                botonLlamadaInterrupcion(i,DireccionLlamada.BAJA);
+                            else
+                                botonLlamadaInterrupcion(i,DireccionLlamada.SUBE);
+                        }
+                    }
+                }
+                //TODO SLEEP DE UT
+            }
+        }
+
+    }
     /**********************************INTERRUPCIONES***********************************/
     public void botonDestinoInterrupcion(int piso, int elevador){//luz
         IntBotonDestino intBotonDestino =new IntBotonDestino((byte)piso,(byte)elevador);

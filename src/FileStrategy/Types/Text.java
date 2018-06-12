@@ -16,13 +16,12 @@ public class Text implements FileStrategy.File {
         ParameterTO parametros = p.getParametros();
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter(nombre + ".txt", "UTF-8");
+            writer = new PrintWriter(nombre + "parametros.txt", "UTF-8");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
         writer.println(parametros.getCantidadPisos());
         writer.println(parametros.getCantidadElevadores());
         writer.println(parametros.getMaxCantidadPersonas());
@@ -33,7 +32,6 @@ public class Text implements FileStrategy.File {
         esrcibirLinea(writer, parametros.getProbabilidadesEmergencia());
         esrcibirLinea(writer, parametros.getTiempoTransicion());
         esrcibirLinea(writer, parametros.getTiempoPuertaAbierta());
-
         writer.close();
     }
 
