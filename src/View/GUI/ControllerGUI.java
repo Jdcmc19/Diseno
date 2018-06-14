@@ -45,19 +45,20 @@ public class ControllerGUI implements Initializable {
     @FXML
     Button eSubir,eBajar,eOnSensorPiso,eOffSensorPiso,eBtoPiso;
     @FXML
-    Label ePisoActualElevador,ePiso;
+    Label ePisoActualElevador,ePiso, eUT;
     @FXML
     ComboBox<Integer> eCbPisos,iCbElevadores;
     @FXML
     Tab tabExterior,tabInterior;
     /*VISTA INTERIOR*/
     @FXML
-    Button iEmergencia,iDetenerse,iPesoActual,iBtoElevador;
+    Button iEmergencia,iDetenerse,iPesoActual,iBtoElevador, ibC, ibN, ibS;
     @FXML
-    Label iDireccionActual,iDireccionPrevista,iPisoActual;
+    Label iDireccionActual,iDireccionPrevista,iPisoActual, iUT;
     @FXML
     AnchorPane iAnchorPane;
 
+    /*LOG*/
     @FXML
     TextArea textLog;
 
@@ -97,6 +98,7 @@ public class ControllerGUI implements Initializable {
                 hiloPiso(eCbPisos.getValue());
             }
         });
+
         iBtoElevador.setOnAction(event -> {
             if(iCbElevadores.getItems().size()==0){
                 ArrayList<Integer> a = new ArrayList<>();
@@ -169,7 +171,7 @@ public class ControllerGUI implements Initializable {
                 dispatcher = new Dispatcher(new SheduleV1(),parameterTO);
                 dispatcher.createElevadores(new BuilderV1(parameterTO));
                 setBotonesDestino();
-                dispatcher.iniciarSimulacion();
+                dispatcher.iniciarSimulacion(1500);
             }else
                 System.out.println("NO setValores()");
         });
@@ -229,6 +231,7 @@ public class ControllerGUI implements Initializable {
     }
     public void actualizarPiso(int piso){//exterioor
 
+        eUT.setText(String.valueOf(dispatcher.getUt()));
         limpiarPiso();
         ePiso.setText(piso+"");
         if(piso==1){
@@ -307,6 +310,7 @@ public class ControllerGUI implements Initializable {
         t.start();
     }
     public void actualizarElevador(int elevador){//interior
+        iUT.setText(String.valueOf(dispatcher.getUt()));
         limpiarElevador();
         ControlElevador ce = dispatcher.getControlesElevador().get(elevador-1);
         for(int i=0;i<parameterTO.getCantidadPisos();i++){

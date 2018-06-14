@@ -40,7 +40,7 @@ public class ViewCON {
             }
         }
 
-        controller.IniciarSimulacion();
+        controller.IniciarSimulacion(1500);
 
     }
 

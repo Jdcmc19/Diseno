@@ -56,13 +56,13 @@ public class ControllerCON {
 
     }
 
-    public void IniciarSimulacion(){
+    public void IniciarSimulacion(int unidadT){
         if(revisar()) {
             dispatcher = new Dispatcher(new SheduleV1(), parametros);
 
             dispatcher.createElevadores(new BuilderV1(parametros));
 
-            dispatcher.iniciarSimulacion();
+            dispatcher.iniciarSimulacion(unidadT);
         }
 
 

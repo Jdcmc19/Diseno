@@ -18,6 +18,9 @@ import java.util.Random;
 //import java.util.spi.AbstractResourceBundleProvider;
 
 public class Dispatcher {
+    private int ut = 0;
+    private boolean next = false;
+    private boolean step = false;
     private ParameterTO parameterTO;
     private Strategy calendarizador;
     private ArrayList<Solicitud> solicitudes;
@@ -124,14 +127,13 @@ public class Dispatcher {
     public void crearHiloDispatcher(){
         delegarSolicitudes();
     }
-    public void iniciarSimulacion(){//hilo AQUI EL SLEEP DE UT
+    public void iniciarSimulacion(int unidadT){//hilo AQUI EL SLEEP DE UT
         crearHiloDispatcher();
         crearHilosElevadores();
-        Boolean bandera = true;
-        Thread hilo = new Thread(
+        Thread t = new Thread(
                 () -> {
             while (true) {
-                while (bandera) {
+                    next = false;
                     actualizarBotonesLlamada();
                     for (int i = 0; i < parameterTO.getCantidadElevadores(); i++) {//por cada elevador
                         calendarizado = new Integer[parameterTO.getCantidadPisos()];
@@ -198,14 +200,15 @@ public class Dispatcher {
                     }
                     //TODO SLEEP DE UT
                     try {
-                        Thread.sleep(3000);
+                        ut++;
+                        Thread.sleep(unidadT);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-            }
+            //}
         });
-        hilo.start();
+        t.start();
 
     }
     /**********************************INTERRUPCIONES***********************************/
@@ -263,7 +266,13 @@ public class Dispatcher {
         this.calendarizado = calendarizado;
     }
 
+    public void setNext(boolean next){this.next = next;}
+
+    public void setStep(boolean step){this.step = step;}
+
     /***********************************************************************************/
+
+    public int getUt(){return this.ut;}
 
     public ParameterTO getParameterTO() {
         return parameterTO;

@@ -136,6 +136,7 @@
                         </Label>
                         <ComboBox fx:id="eCbPisos" layoutX="561.0" layoutY="51.0" prefHeight="25.0" prefWidth="58.0" />
                         <Button fx:id="eBtoPiso" layoutX="522.0" layoutY="51.0" mnemonicParsing="false" text="Piso:" />
+                        <Label fx:id="eUT" layoutX="590.0" layoutY="465.0" text="0" />
                      </children>
                   </Pane>
                </content></Tab>
@@ -176,6 +177,10 @@
                         </Label>
                         <ComboBox fx:id="iCbElevadores" layoutX="571.0" layoutY="51.0" prefHeight="25.0" prefWidth="58.0" />
                         <Button fx:id="iBtoElevador" layoutX="508.0" layoutY="51.0" mnemonicParsing="false" text="Elevador:" />
+                        <Button fx:id="ibS" layoutX="10.0" layoutY="455.0" mnemonicParsing="false" text="S" />
+                        <Button fx:id="ibN" layoutX="41.0" layoutY="455.0" mnemonicParsing="false" text="N" />
+                        <Label fx:id="iUT" layoutX="588.0" layoutY="460.0" text="0" />
+                        <Button fx:id="ibC" layoutX="74.0" layoutY="455.0" mnemonicParsing="false" text="C" />
                      </children></AnchorPane>
               </content>
             </Tab>

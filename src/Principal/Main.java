@@ -41,8 +41,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        //TODO RELOJ UT
-        //TODO MOSTRAR RELOJ UT
         //TODO VER EL LOG EN LA ESPECIFICACION(PERSONAS QUE ENTRAN Y SALEN)
         //TODO VER QUE PASA CON EL DIRECCION PREVISTA QUE NUNCA CAMBIA DE NINGUNA
         //TODO VER QUE SIRVA LA VISTA DE CONSOLA
