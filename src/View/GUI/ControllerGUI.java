@@ -43,7 +43,7 @@ public class ControllerGUI implements Initializable {
     RadioButton mXML,mJSON,mTXT;
     /*VISTA EXTERIOR*/
     @FXML
-    Button eSubir,eBajar,eOnSensorPiso,eOffSensorPiso,eBtoPiso;
+    Button eSubir,eBajar,eOnSensorPiso,eOffSensorPiso,eBtoPiso, ebC, ebN, ebS;
     @FXML
     Label ePisoActualElevador,ePiso, eUT;
     @FXML
@@ -71,6 +71,30 @@ public class ControllerGUI implements Initializable {
         Console console = new Console(textLog);
         PrintStream ps = new PrintStream(console, true);
         System.setOut(ps);
+
+        ibC.setOnAction(actionEvent -> {
+            dispatcher.setStep(false);
+        });
+
+        ibS.setOnAction(actionEvent -> {
+            dispatcher.setStep(true);
+        });
+
+        ibN.setOnAction(actionEvent -> {
+            dispatcher.setNext(true);
+        });
+
+        ebC.setOnAction(actionEvent -> {
+            dispatcher.setStep(false);
+        });
+
+        ebS.setOnAction(actionEvent -> {
+            dispatcher.setStep(true);
+        });
+
+        ebN.setOnAction(actionEvent -> {
+            dispatcher.setNext(true);
+        });
 
         eBtoPiso.setOnAction(event -> {
             if(eCbPisos.getItems().size()==0){

@@ -137,6 +137,9 @@
                         <ComboBox fx:id="eCbPisos" layoutX="561.0" layoutY="51.0" prefHeight="25.0" prefWidth="58.0" />
                         <Button fx:id="eBtoPiso" layoutX="522.0" layoutY="51.0" mnemonicParsing="false" text="Piso:" />
                         <Label fx:id="eUT" layoutX="590.0" layoutY="465.0" text="0" />
+                        <Button fx:id="ebS" layoutX="14.0" layoutY="452.0" mnemonicParsing="false" text="S" />
+                        <Button fx:id="ebN" layoutX="45.0" layoutY="452.0" mnemonicParsing="false" text="N" />
+                        <Button fx:id="ebC" layoutX="78.0" layoutY="452.0" mnemonicParsing="false" text="C" />
                      </children>
                   </Pane>
                </content></Tab>

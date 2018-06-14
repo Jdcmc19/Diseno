@@ -132,8 +132,25 @@ public class Dispatcher {
         crearHilosElevadores();
         Thread t = new Thread(
                 () -> {
+
+                    boolean bandera;
             while (true) {
-                    next = false;
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(step){
+                    if(next){
+                        next = false;
+                        bandera = true;
+                    }else{
+                        bandera = false;
+                    }
+                }else{
+                    bandera = true;
+                }
+                while(bandera){
                     actualizarBotonesLlamada();
                     for (int i = 0; i < parameterTO.getCantidadElevadores(); i++) {//por cada elevador
                         calendarizado = new Integer[parameterTO.getCantidadPisos()];
@@ -170,7 +187,6 @@ public class Dispatcher {
                             if (rand.nextInt(100) < parameterTO.getProbabilidadesDestino().get(e)) {
                                 if(e+1!=controlesElevador.get(i).getCabina().getPisoActual()){
                                     System.out.println("Elevador: "+(i+1)+" en el piso: "+controlesElevador.get(i).getCabina().getPisoActual()+" ir al piso: "+(e+1));
-
                                     botonDestinoInterrupcion(e, i);
                                 }
                             }
@@ -198,15 +214,16 @@ public class Dispatcher {
                             }
                         }
                     }
-                    //TODO SLEEP DE UT
                     try {
                         ut++;
                         Thread.sleep(unidadT);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+                    bandera = false;
                 }
-            //}
+            }
         });
         t.start();
 
