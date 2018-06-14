@@ -27,8 +27,8 @@ public class Main extends Application {
         primaryStage.setTitle("Hello Mundo");
         primaryStage.setScene(new Scene(root, 643, 528));
         primaryStage.show();
-        ParameterBO pBO;
-        Context file;
+        //ParameterBO pBO;
+        //Context file;
         /*file = new Context(new Xml());
         pBO = file.leer("pruebaXml.xml");
         //file.escribir("pruebaXml", pBO);
@@ -46,7 +46,6 @@ public class Main extends Application {
         //TODO VER EL LOG EN LA ESPECIFICACION(PERSONAS QUE ENTRAN Y SALEN)
         //TODO VER QUE PASA CON EL DIRECCION PREVISTA QUE NUNCA CAMBIA DE NINGUNA
         //TODO VER QUE SIRVA LA VISTA DE CONSOLA
-        //TODO DESVIAR LOS PRINTS AL LOG
         //TODO HACER QUE VAYA PASO A PASO LA SIMULACION
 
         //launch(args);

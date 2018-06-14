@@ -23,6 +23,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -56,13 +57,19 @@ public class ControllerGUI implements Initializable {
     Label iDireccionActual,iDireccionPrevista,iPisoActual;
     @FXML
     AnchorPane iAnchorPane;
-    public void initialize(URL fxmlLocations, ResourceBundle resources){
 
+    @FXML
+    TextArea textLog;
+
+    public void initialize(URL fxmlLocations, ResourceBundle resources){
 
         ToggleGroup tg = new ToggleGroup();
         mXML.setToggleGroup(tg);
         mTXT.setToggleGroup(tg);
         mJSON.setToggleGroup(tg);
+        Console console = new Console(textLog);
+        PrintStream ps = new PrintStream(console, true);
+        System.setOut(ps);
 
         eBtoPiso.setOnAction(event -> {
             if(eCbPisos.getItems().size()==0){

@@ -213,18 +213,27 @@ public class Dispatcher {
         if(solicitudes==null)
             solicitudes=new ArrayList<>();
         IntBotonDestino intBotonDestino =new IntBotonDestino((byte)piso,(byte)elevador);
+        if(solicitudes == null){
+            solicitudes = new ArrayList<>();
+        }
         solicitudes.add(intBotonDestino);
     }
     public void sensorPisoInterrupcion(int piso, int elevador){
         if(solicitudes==null)
             solicitudes=new ArrayList<>();
         IntSensorPiso intSensorPiso =new IntSensorPiso((byte)piso,(byte)elevador);
+        if(solicitudes == null){
+            solicitudes = new ArrayList<>();
+        }
         solicitudes.add(intSensorPiso);
     }
     public void botonLlamadaInterrupcion(int piso, DireccionLlamada direccionLlamada){//luz
         if(solicitudes==null)
             solicitudes=new ArrayList<>();
         IntBotonLlamada intBotonLlamada = new IntBotonLlamada((byte)piso,direccionLlamada);
+        if(solicitudes == null){
+            solicitudes = new ArrayList<>();
+        }
         solicitudes.add(intBotonLlamada);
     }
 
@@ -232,6 +241,9 @@ public class Dispatcher {
         if(solicitudes==null)
             solicitudes=new ArrayList<>();
         IntControlesMotor intControlesMotor = new IntControlesMotor((byte)elevador,(byte)control);
+        if(solicitudes == null){
+            solicitudes = new ArrayList<>();
+        }
         solicitudes.add(intControlesMotor);
     }
 
