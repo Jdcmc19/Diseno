@@ -10,14 +10,14 @@ import ParameterDTO.ParameterTO;
 import Scheduler.Dispatcher;
 import Scheduler.ModeStrategy.SheduleV1;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class ControllerCON {
     private Dispatcher dispatcher;
     private ParameterTO parametros;
-    //leer tonteras funcoines marco
-    // objeto dispatcher y parameterTo
-    //controller gui 94
+
 
 
     public void LeerArchivos(String path,String Tipo) throws IOException {
@@ -32,26 +32,8 @@ public class ControllerCON {
             context.setStrategy(new Xml());
         }
         temporal =context.leer(path);
-        System.out.println(temporal.getParametros().getCantidadPisos());
-        System.out.println(temporal.getParametros().getCantidadElevadores());
-        System.out.println(temporal.getParametros().getMaxCantidadPersonas());
-        System.out.println(temporal.getParametros().getMaxPeso());
-
-        for (int i=0 ;i<temporal.getParametros().getProbabilidadesLlamada().size();i++) {
-            System.out.println(temporal.getParametros().getProbabilidadesLlamada().get(i));
-            System.out.println(temporal.getParametros().getProbabilidadesDestino().get(i));
-            System.out.println(temporal.getParametros().getProbabilidadesDetener().get(i));
-            System.out.println(temporal.getParametros().getProbabilidadesEmergencia().get(i));
-            System.out.println(temporal.getParametros().getTiempoTransicion().get(i));
-            System.out.println(temporal.getParametros().getTiempoPuertaAbierta().get(i));
-
-        }
 
         parametros=temporal.getParametros();
-        System.out.println("print final");
-        System.out.println(parametros.getMaxCantidadPersonas());
-        System.out.println("print despues final");
-
 
 
     }
@@ -64,11 +46,40 @@ public class ControllerCON {
 
             dispatcher.iniciarSimulacion(unidadT);
         }
+        else{
+            System.out.println("Hubo un problema con los archivos");
+        }
+        }
 
+    public void SimulacionPaso(int unidadT) throws IOException {
+        String paso;
+        if(revisar()) {
+            dispatcher = new Dispatcher(new SheduleV1(), parametros);
 
+            dispatcher.createElevadores(new BuilderV1(parametros));
+            dispatcher.setStep(true);
+            dispatcher.iniciarSimulacion(unidadT);
+
+            while(dispatcher.isStep()==true){
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                System.out.print("Continuar paso a paso? S/N:\n  ");
+                paso = br.readLine();
+                if(paso.equals("N")){
+                    dispatcher.setStep(false);
+
+                }
+                else{
+                    dispatcher.setNext(true);
+                }
+            }
+        }
+        else{
+            System.out.println("Hubo un problema con los archivos");
+        }
     }
 
-    /* public boolean revisarValoresSimples(){
+        /* public boolean revisarValoresSimples(){
         if(arrayListFromString(mCantPersonas.getText()).size()!=1)return false;
         if(arrayListFromString(mPeso.getText()).size()!=1)return false;
         if(arrayListFromString(mCantPisos.getText()).size()!=1)return false;
@@ -107,6 +118,7 @@ public class ControllerCON {
 
 
     }
+
 
 
 

@@ -7,12 +7,15 @@ import FileStrategy.Types.Xml;
 import ParameterDTO.*;
 import FileStrategy.Types.Json;
 import View.Console.ViewCON;
+import View.Console.appletkeytest;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -46,7 +49,8 @@ public class Main extends Application {
 
         //launch(args);
 
-
+         appletkeytest test = new appletkeytest();
+        test.inciar();
 
         String RespuestaConsola;
         ViewCON Vista_consola = new ViewCON();

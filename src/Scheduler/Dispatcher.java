@@ -28,7 +28,19 @@ public class Dispatcher {
     private ArrayList<ControlElevador> controlesElevador;
     private Integer[] calendarizado;
 
-    public Dispatcher(ArrayList<ArrayList<BotonLlamada>> botonesLlamadas,ArrayList<ControlElevador> controlesElevador, Strategy calendarizador,Integer[] calendarizado){
+    public void setUt(int ut) {
+        this.ut = ut;
+    }
+
+    public boolean isNext() {
+        return next;
+    }
+
+    public boolean isStep() {
+        return step;
+    }
+
+    public Dispatcher(ArrayList<ArrayList<BotonLlamada>> botonesLlamadas, ArrayList<ControlElevador> controlesElevador, Strategy calendarizador, Integer[] calendarizado){
         this.botonesLlamadas = botonesLlamadas;
         this.controlesElevador = controlesElevador;
         this.calendarizador = calendarizador;

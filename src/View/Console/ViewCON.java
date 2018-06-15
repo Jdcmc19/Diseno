@@ -14,10 +14,14 @@ public class ViewCON {
 
     // menú de antes
     public void menu() throws IOException {
+       // appletkeytest test = new appletkeytest();
+        //test.inciar();
         String Tipo;
+        String modo;
         ControllerCON controller= new ControllerCON();
         File Temp;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br2 = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Pegue el path del archivo: ");
         Path = br.readLine();
         System.out.println(Path);
@@ -39,8 +43,17 @@ public class ViewCON {
                 }
             }
         }
+        System.out.println("Desea empezar la simulación en modo automatico?: ");
+        modo=br2.readLine();
+        if (modo.equals("S")){
+            controller.IniciarSimulacion(1500);
+        }
+        else{
+            controller.SimulacionPaso(1500);
 
-        controller.IniciarSimulacion(1500);
+        }
+
+
 
     }
 
