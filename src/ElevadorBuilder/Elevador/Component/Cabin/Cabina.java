@@ -9,7 +9,7 @@ public class Cabina {
     private DireccionElevador direccionPrevista;
     private DireccionElevador direccionActual;
     private int pisoActual;
-
+    private int cantidadPersonas;
     private Mover move;
     private BotonDetenerse botonDetenerse;
     private InterruptorEmergencia interruptorEmergencia;
@@ -102,5 +102,13 @@ public class Cabina {
 
     public void setInterruptorEmergencia(InterruptorEmergencia interruptorEmergencia) {
         this.interruptorEmergencia = interruptorEmergencia;
+    }
+
+    public int getCantidadPersonas() {
+        return cantidadPersonas;
+    }
+
+    public void setCantidadPersonas(int cantidadPersonas) {
+        this.cantidadPersonas = cantidadPersonas;
     }
 }
