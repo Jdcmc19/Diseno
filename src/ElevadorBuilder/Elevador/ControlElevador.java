@@ -125,6 +125,11 @@ public class ControlElevador {
                 cabina.setDireccionPrevista(DireccionElevador.NINGUNA);
         }
         cabina.moverse();
+        int cp = cabina.getCantidadPersonas();
+        if(cp>0) {
+            cabina.setCantidadPersonas(cp - 1);
+            System.out.println("Se baja 1 persona en el piso "+ cabina.getPisoActual());
+        }
         ArrayList<Byte> as = new ArrayList<>();
         for(int i=0;i<botonDestino.size();i++){
             BotonDestino bb = botonDestino.get(i);

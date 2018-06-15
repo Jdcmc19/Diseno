@@ -188,9 +188,18 @@ public class Dispatcher {
                                 if(e+1!=controlesElevador.get(i).getCabina().getPisoActual()){
                                     System.out.println("Elevador: "+(i+1)+" en el piso: "+controlesElevador.get(i).getCabina().getPisoActual()+" ir al piso: "+(e+1));
                                     botonDestinoInterrupcion(e, i);
+                                    ControlElevador ce = controlesElevador.get(i);
+                                    Cabina ca = ce.getCabina();
+                                    int cp = ca.getCantidadPersonas();
+                                    ca.setCantidadPersonas(cp+1);
+                                    ce.setCabina(ca);
+                                    controlesElevador.set(i,ce);
+                                    System.out.println("Elevador "+(i+1)+" : "+ca.getCantidadPersonas()+" personas");
+
                                 }
                             }
                         }
+
                     }
                     for (int i = 0; i < parameterTO.getCantidadPisos(); i++) {
                         Random r = new Random();
