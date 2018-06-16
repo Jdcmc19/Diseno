@@ -49,8 +49,8 @@ public class Main extends Application {
 
         //launch(args);
 
-         appletkeytest test = new appletkeytest();
-        test.inciar();
+        /* appletkeytest test = new appletkeytest();
+        test.inciar();*/
 
         String RespuestaConsola;
         ViewCON Vista_consola = new ViewCON();
