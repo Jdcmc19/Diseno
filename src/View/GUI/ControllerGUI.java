@@ -36,7 +36,7 @@ public class ControllerGUI implements Initializable {
     Thread t;
     /*MENU PRINCIPAL*/
     @FXML
-    TextField mCantPersonas,mPeso,mCantPisos,mCantElevadores,mEntrePisos,mPuertaAbierta,mLlamadaElevador,mDetenerse,mDestino,mEmergencia;
+    TextField mCantPersonas,mPeso,mCantPisos,mCantElevadores,mEntrePisos,mPuertaAbierta,mLlamadaElevador,mDetenerse,mDestino,mEmergencia, mUT;
     @FXML
     Button mIniciarSimulacion,mGuardarSimulacion,mCargarSimulacion;
     @FXML
@@ -195,7 +195,7 @@ public class ControllerGUI implements Initializable {
                 dispatcher = new Dispatcher(new SheduleV1(),parameterTO);
                 dispatcher.createElevadores(new BuilderV1(parameterTO));
                 setBotonesDestino();
-                dispatcher.iniciarSimulacion(1500);
+                dispatcher.iniciarSimulacion(Integer.parseInt(mUT.getText()));
             }else
                 System.out.println("NO setValores()");
         });
