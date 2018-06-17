@@ -7,7 +7,6 @@ import FileStrategy.Types.Xml;
 import ParameterDTO.*;
 import FileStrategy.Types.Json;
 import View.Console.ViewCON;
-import View.Console.appletkeytest;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,8 +43,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        //TODO VER QUE PASA CON EL DIRECCION PREVISTA QUE NUNCA CAMBIA DE NINGUNA
-        //TODO VER QUE SIRVA LA VISTA DE CONSOLA
 
         //launch(args);
 
@@ -61,7 +58,7 @@ public class Main extends Application {
             while(true) {
                 System.out.print("Desea empezar con Consola o Interfaz (C/I): ");
                 RespuestaConsola = br.readLine();
-                if(RespuestaConsola.equals("I")){
+                if(RespuestaConsola.equals("I")||RespuestaConsola.equals("i")){
                     launch(args);
                     break;
                 }
